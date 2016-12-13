@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- app.properties 읽어들이기:dataSource -->
+	<bean
+		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/spring/app.properties"></property>
+	</bean>
+
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- app.properties 를 읽어서 값 받기 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driverClassName.driver}"></property>
+		<property name="url" value="${url.url}"></property>
+		<property name="username" value="${username.id}"></property>
+		<property name="password" value="${password.pw}"></property>
+	</bean>
+	<!-- DB -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="${configLocation.config}"></property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
+	
+</beans>
