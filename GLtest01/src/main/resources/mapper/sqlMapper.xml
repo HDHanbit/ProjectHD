@@ -4,45 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product">
-	<!-- 상품 sql -->
 	<select id="selectAll" resultType="com.gl.master.model.product.ProductVo">
-		SELECT * FROM PRODUCT ORDER BY
-		PRIO
-	</select>
-	<select id="selectOne" parameterType="String"
-		resultType="com.gl.master.model.product.ProductVo">
-		SELECT * FROM PRODUCT WHERE PROID=#{value}
-	</select>
-	<insert id="insertOne" parameterType="com.gl.master.model.product.ProductVo">
-		INSERT INTO PRODUCT VALUES
-		(#{proid}, #{proname}, #{cat}, #{loc}, #{price},
-		#{minp}, #{maxp},
-		#{peris}, #{perin}, #{trans}, #{exp}, #{startd},
-		#{img}, #{thumb},
-		#{discount}, #{point}, #{prio}, #{event})
-	</insert>
-	<update id="updateOne" parameterType="com.gl.master.model.product.ProductVo">
-		UPDATE product SET
-		proname=#{proname}, cat =#{cat}, loc =#{loc}, price
-		=#{price}, minp
-		=#{minp}, maxp =#{maxp}, peris =#{peris}, perin
-		=#{perin}, trans
-		=#{trans}, exp =#{exp}, startd =#{startd}, img
-		=#{thumb}, discount
-		=#{discount}, point =#{point}, prio =#{prio},
-		event =#{event} WHERE
-		proid=#{proid}
-	</update>
-	<delete id="deleteOne" parameterType="String">
-		DELETE FROM product WHERE
-		proid=#{proid}
-	</delete>
-
-	<select id="selectCat" resultType="com.gl.master.model.CatVo">
-		SELECT * FROM CAT
-	</select>
-	<select id="selectLoc" resultType="com.gl.master.model.LocVo"
-		parameterType="String">
-		SELECT * FROM LOC WHERE CATCODE=#{value}
+		select * from product order by
+		prio
 	</select>
 </mapper>
