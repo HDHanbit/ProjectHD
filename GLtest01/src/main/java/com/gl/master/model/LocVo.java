@@ -4,16 +4,37 @@ public class LocVo {
 	private String loccode;
 	private String locname;
 	private String catcode;
-	
+	private String code;
+	private String name;
+
 	public LocVo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LocVo(String loccode, String locname, String catcode) {
+	public LocVo(String loccode, String locname, String catcode, String code,
+			String name) {
 		super();
 		this.loccode = loccode;
 		this.locname = locname;
 		this.catcode = catcode;
+		this.code = code;
+		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -82,7 +103,5 @@ public class LocVo {
 		return "LocVo [loccode=" + loccode + ", locname=" + locname
 				+ ", catcode=" + catcode + "]";
 	}
-	
-	
 
 }

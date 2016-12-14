@@ -43,6 +43,6 @@
 	</select>
 	<select id="selectLoc" resultType="com.gl.master.model.LocVo"
 		parameterType="String">
-		SELECT * FROM LOC WHERE CATCODE=#{value}
+		SELECT * FROM LOC INNER JOIN CAT ON LOC.CATCODE = CAT.CODE WHERE CAT.NAME=#{value}
 	</select>
 </mapper>

@@ -51,9 +51,9 @@ public class ProductDaoImp implements MasterDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("product.selectCat");
 	}
-	public List<LocVo> selectLoc() {
+	public List<LocVo> selectLoc(String catname) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("product.selectLoc");
+		return sqlSession.selectList("product.selectLoc", catname);
 	}
 
 }

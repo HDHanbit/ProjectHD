@@ -18,8 +18,8 @@
 </head>
 <body>
 	<div class="container">
-	<!-- 	<div class="row">
-			<div class="col-xs-12">
+		<!-- 	<div class="row">
+			<div class="col-fm-12">
 				<ol class="breadcrumb">
 					<li><a href="/sts04/">Home</a></li>
 					<li class="active">List</li>
@@ -28,7 +28,7 @@
 		</div> -->
 		<h1>상품 리스트 페이지-헤더 푸터 메뉴 적용 예정</h1>
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-md-12">
 				<table class="table table-hover">
 					<tr>
 						<th>상품코드</th>
@@ -44,37 +44,44 @@
 					</tr>
 
 					<c:forEach items="${plist }" var="bean">
-						
-							<tr>
-								<td>${bean.proid }</td>
-								<td>${bean.proname }</td>
-								<td>${bean.cat }</td>
-								<td>${bean.loc }</td>
-								<td><fmt:formatNumber value="${bean.price }"  type="currency" currencySymbol="￦"/></td>
-								<td><fmt:formatNumber value="${bean.discount }" type="percent"/></td>
-								<td><fmt:formatNumber value="${bean.point }" pattern=".00"/></td>
-								<td>${bean.prio }</td>
-								<!-- 핫딜 : 1 / 마감임박 : 2 /신규상품 : 3 /매진임박:인원수가 최대-4일 경우 -->
-								<c:if test="${bean.event eq(1) }">
-									<td>핫딜</td>
-								</c:if>
-								<c:if test="${bean.event eq(2) }">
-									<td>마감임박</td>
-								</c:if>
-								<c:if test="${bean.event eq(3) }">
-									<td>신규상품</td>
-								</c:if>
-								<c:if test="${bean.event eq(4) }">
-									<td>매진임박</td>
-								</c:if>
-								<td><a class="btn btn-success" href="detail?id=${bean.proid }" role="button">수 정</a></td>
-							</tr>
-					
+
+						<tr>
+							<td>${bean.proid }</td>
+							<td>${bean.proname }</td>
+							<td>${bean.cat }</td>
+							<td>${bean.loc }</td>
+							<td><fmt:formatNumber value="${bean.price }" type="currency"
+									currencySymbol="￦" /></td>
+							<td><fmt:formatNumber value="${bean.discount }"
+									type="percent" /></td>
+							<td><fmt:formatNumber value="${bean.point }" pattern=".00" /></td>
+							<td>${bean.prio }</td>
+							<!-- 핫딜 : 1 / 마감임박 : 2 /신규상품 : 3 /매진임박:인원수가 최대-4일 경우 -->
+							<c:if test="${bean.event eq(1) }">
+								<td>핫딜</td>
+							</c:if>
+							<c:if test="${bean.event eq(2) }">
+								<td>마감임박</td>
+							</c:if>
+							<c:if test="${bean.event eq(3) }">
+								<td>신규상품</td>
+							</c:if>
+							<c:if test="${bean.event eq(4) }">
+								<td>매진임박</td>
+							</c:if>
+							<td><a class="btn btn-success"
+								href="detail?id=${bean.proid }" role="button">수 정</a> <a
+								class="btn btn-danger" href="del?id=${bean.proid }"
+								role="button">삭 제</a></td>
+						</tr>
+
 					</c:forEach>
 				</table>
 			</div>
 			<div>
-			<p><a class="btn btn-success" href="detail?id=add" role="button">입력</a></p>
+				<p>
+					<a class="btn btn-success" href="detail?id=add" role="button">입력</a>
+				</p>
 			</div>
 		</div>
 	</div>
