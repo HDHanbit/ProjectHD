@@ -9,7 +9,6 @@
 		<property name="location" value="/WEB-INF/spring/app.properties"></property>
 	</bean>
 
-
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- app.properties 를 읽어서 값 받기 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -26,5 +25,9 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactoryBean"></constructor-arg>
 	</bean>
-	
+	<!-- 상품관련 db연결 -->
+	<bean id="productDaoImp" class="com.gl.master.model.product.ProductDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+
 </beans>
