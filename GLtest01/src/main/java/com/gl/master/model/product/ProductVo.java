@@ -17,8 +17,8 @@ public class ProductVo {
 	private Date startd;
 	private String img;
 	private String thumb;
-	private int discount;
-	private int point;
+	private double discount;
+	private double point;
 	private int prio;
 	private int event;
 	public ProductVo() {
@@ -132,16 +132,16 @@ public class ProductVo {
 	public void setThumb(String thumb) {
 		this.thumb = thumb;
 	}
-	public int getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
-	public void setDiscount(int discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	public int getPoint() {
+	public double getPoint() {
 		return point;
 	}
-	public void setPoint(int point) {
+	public void setPoint(double point) {
 		this.point = point;
 	}
 	public int getPrio() {
