@@ -1,14 +1,18 @@
 package com.gl.master;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.junit.runners.Parameterized.Parameters;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.master.model.CatVo;
 import com.gl.master.model.LocVo;
@@ -42,6 +47,7 @@ public class ProductController {
 
 	@RequestMapping(value = "list")
 	public String productList(Model model) {
+		// 상품 리스트 보여주기
 		logger.info("productList index");
 
 		List<ProductVo> list = proDaoImp.selectAll();
@@ -59,11 +65,18 @@ public class ProductController {
 		// code값 받아와 지역 찾아내기
 		logger.info("ajax-비동기 통신");
 		List<LocVo> list = proDaoImp.selectLoc(catName);
-		String data = "";
-		for (LocVo bean : list) {
-			data += "<option value=\"" + bean.getLocname() + "\">"
-					+ bean.getLocname() + "</option>";
+		String data = "<select name=\"loc\" class=\"form-control input-default loc\">";
+		if (list.size() > 0) {
+			for (LocVo bean : list) {
+				data += "<option value=\"" + bean.getLocname() + "\">"
+						+ bean.getLocname() + "</option>";
+			}
+			data += "</select>";
+		} else {
+			data = "<input type=\"text\" class=\"form-control\" id=\"loc\" name=\"loc\""
+					+ "placeholder=\"지역을 입력하세요.\">";
 		}
+
 		PrintWriter print = null;
 		String dataEnco = "";
 		try {
@@ -74,7 +87,7 @@ public class ProductController {
 			e.printStackTrace();
 			dataEnco = URLEncoder.encode("데이터가 없습니다.", "UTF-8");
 		}
-		logger.info(dataEnco);
+		logger.info(data);
 		print.print(dataEnco);
 	}
 
@@ -94,6 +107,7 @@ public class ProductController {
 			logger.info("product-detail/add form");
 			model.addAttribute("title", "입력");
 			model.addAttribute("catList", cat);
+			model.addAttribute("url", "insert");
 		} else {
 			logger.info("product-detail/parameter ok");
 			ProductVo bean = proDaoImp.selectOne(proid);
@@ -102,8 +116,63 @@ public class ProductController {
 			model.addAttribute("title", "수정");
 			model.addAttribute("bean", bean);
 			model.addAttribute("catList", cat);
+			model.addAttribute("url", "update");
 		}
 		return "product/detail";
+	}
+
+	@RequestMapping(value = "del")
+	public String productDelete(@RequestParam("id") String proid) {
+		// 항목삭제
+
+		proDaoImp.deleteOne(proid);
+
+		return "redirect:/product/list";
+	}
+
+	@RequestMapping(value = "insert", method = RequestMethod.POST)
+	//bean=>getter, setter로!
+	public String insertProduct(ProductVo bean, Model model,
+			HttpServletRequest request) {
+		logger.info("file upload BE : " + bean.toString());
+
+		MultipartFile thumbFile = bean.getThumbFile();
+		MultipartFile detailFile = bean.getImgFile();
+
+		if (thumbFile != null && detailFile != null) {
+			String tbFileName = thumbFile.getOriginalFilename();
+			String deFileName = detailFile.getOriginalFilename();
+			try {
+				tbFileName = URLDecoder.decode(tbFileName, "UTF-8");
+				deFileName = URLDecoder.decode(deFileName, "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			bean.setThumb(tbFileName);
+			bean.setImg(deFileName);
+			String url = request.getRealPath("file") + "/";
+			try {
+				File fileTb = new File(url + tbFileName);
+				thumbFile.transferTo(fileTb);
+				File fileIm = new File(url + deFileName);
+				detailFile.transferTo(fileIm);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} // try - catch
+		} // if
+
+		String proid = bean.getCat()
+				+ bean.getLoc().substring(0, 2)
+				+ bean.getTrans().substring(0, 2)
+				+ bean.getStartd().toString().substring(8, 10);
+		bean.setProid(proid);
+		logger.info(bean.getProid());
+		logger.info("file upload AF : " + bean.toString());
+
+		proDaoImp.insertOne(bean);
+
+		return "redirect:/product/list";
 	}
 
 }

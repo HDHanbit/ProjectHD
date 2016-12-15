@@ -32,19 +32,19 @@ public class ProductDaoImp implements MasterDao {
 	@Override
 	public void insertOne(Object bean) {
 		// TODO Auto-generated method stub
-		sqlSession.insert("product.insertOne");
+		sqlSession.insert("product.insertOne", (ProductVo)bean);
 	}
 
 	@Override
 	public void updateOne(Object bean) {
 		// TODO Auto-generated method stub
-		sqlSession.update("product.updateOne");
+		sqlSession.update("product.updateOne", (ProductVo)bean);
 	}
 
 	@Override
 	public void deleteOne(String id) {
 		// TODO Auto-generated method stub
-		sqlSession.delete("product.deleteOne");
+		sqlSession.delete("product.deleteOne", id);
 	}
 
 	public List<CatVo> selectCat() {

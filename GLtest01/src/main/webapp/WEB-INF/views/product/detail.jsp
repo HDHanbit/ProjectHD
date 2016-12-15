@@ -34,7 +34,7 @@
 
 		//file 이미지 미리보기 thumb
 		$(function() {
-			$("#thumb").on('change', function() {
+			$("#thumbFile").on('change', function() {
 				readURLTB(this);
 			});
 		});
@@ -52,7 +52,7 @@
 
 		//file 이미지 미리보기 detail img
 		$(function() {
-			$("#img").on('change', function() {
+			$("#imgFile").on('change', function() {
 				readURLIM(this);
 			});
 		});
@@ -69,23 +69,24 @@
 		}//file 이미지 미리보기 detail img
 
 		//비동기 통신으로 진행
-		$(".cat").on("click", function() {
+		$(".catbtn").on("click", function() {
 			var catname = $(".catSel").val();
 			var target = $('.cat');
+			/* var param= */
 			$.ajax({
 				"url" : "cat",
-				"data":{'catName':catname},
-				"dataType":"json",
-				'success' : function(data, textStatus,jqXHR) {	
-					target.html("<select class=\"form-control input-default\">");
-					data = data.replace(/\+/gi,'%20');
+				"data" : {
+					'catName' : catname
+				},
+				'success' : function(data, textStatus, jqXHR) {
+					target.html("");
+					data = data.replace(/\+/gi, '%20');
 					data = decodeURIComponent(data);
 					target.append(data);
-					target.append("</select>");
-					},
+				},
 				"error" : function(jqXHR, textStatus) {
-					alert("통신실패 " + textStatus + "(code): "	+ jqXHR.status);},
-				
+					alert("통신실패 " + textStatus + "(code): " + jqXHR.status);
+				},
 
 			});
 			return false;
@@ -103,7 +104,7 @@
 		-->
 	<div class="container">
 		<h1>${title }페이지</h1>
-		<form>
+		<form action="${url }" enctype="multipart/form-data" method="post">
 			<div class="form-group col-md-12">
 				<div class="col-md-4">
 					<img alt="제품 썸네일 이미지" id="thumbImg"
@@ -111,10 +112,12 @@
 						width="300px">
 
 				</div>
-				<label for="thumb" class="col-md-2 control-label">썸네일 이미지</label>
+				<label for="thumbFile" class="col-md-2 control-label">썸네일
+					이미지</label>
 				<div class="col-md-6">
-					<input type="file" class="form-control" id="thumb" name="thumb" />
-					<!-- 파일 업로드 확인 필요! : 업로드된 파일있다면 받아오기 -->
+					<input type="file" class="form-control" id="thumbFile"
+						name="thumbFile" />
+					<!-- 파일 업로드 확인 필요! : 업로드된 파일있다면 받아오기 : 불가 -->
 				</div>
 			</div>
 			<div class="form-group col-md-12">
@@ -133,24 +136,26 @@
 				</div>
 			</div>
 			<div class="form-group col-md-12">
-				<label for="proname" class="col-md-2 control-label">카테고리</label>
+				<label for="catSel" class="col-md-2 control-label">카테고리</label>
 				<p hidden="hidden" id="cat">${bean.cat }</p>
 				<div class="col-md-9">
-					<select class="catSel form-control input-default">
+					<select name="cat" class="catSel form-control input-default">
 						<c:forEach items="${catList }" var="cat">
-							<option value="${cat.name }">${cat.name }</option>
+							<option value="${cat.code }">${cat.name }</option>
 						</c:forEach>
 					</select>
 				</div>
 				<div class="col-md-1">
-					<button type="button" class="btn btn-success cat form-control">선택</button>
+					<button type="button" class="btn btn-success catbtn form-control">선택</button>
 				</div>
 			</div>
 			<div class="form-group col-md-12">
-				<input hidden="hidden" value="${bean.loc }" id="loc"> <label
-					for="proname" class="col-md-2 control-label">지역</label>
+				<label for="loc" class="col-md-2 control-label">지역</label>
 				<div class="col-md-10 cat">
 					<!-- js로 처리 예정 -->
+					<input type="text" class="form-control" id="loc" name="loc"
+						placeholder="카테고리를 선택하세요." value="${bean.loc }">
+
 				</div>
 			</div>
 			<div class="form-group col-md-12">
@@ -180,8 +185,8 @@
 				</div>
 				<label for="startd" class="col-md-2 control-label">출발일</label>
 				<div class="col-md-4">
-					<input type="text" class="form-control" id="startd" name="startd"
-						placeholder="yyyy-mm-dd형식으로 작성해 주십시오." value="${bean.startd }">
+					<input type="date" class="form-control" id="startd" name="startd"
+						value="${bean.startd }">
 				</div>
 
 			</div>
@@ -240,10 +245,10 @@
 					<img alt="제품 상세 이미지" id="imgImg" src="/master/file/${bean.img }"
 						class="img-thumbnail" width="350px">
 				</div>
-				<label for="img" class="col-md-2 control-label">상품 상세 이미지</label>
+				<label for="imgFile" class="col-md-2 control-label">상품 상세
+					이미지</label>
 				<div class="col-md-6">
-					<input type="file" class="form-control" id="img" name="img"
-						value="${bean.img }" />
+					<input type="file" class="form-control" id="imgFile" name="imgFile" />
 					<!-- 파일 업로드 확인 필요! : 업로드된 파일있다면 받아오기 -->
 				</div>
 			</div>

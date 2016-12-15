@@ -48,7 +48,7 @@
 						<tr>
 							<td>${bean.proid }</td>
 							<td>${bean.proname }</td>
-							<td>${bean.cat }</td>
+							<td>${bean.name }</td>
 							<td>${bean.loc }</td>
 							<td><fmt:formatNumber value="${bean.price }" type="currency"
 									currencySymbol="￦" /></td>
@@ -57,6 +57,9 @@
 							<td><fmt:formatNumber value="${bean.point }" pattern=".00" /></td>
 							<td>${bean.prio }</td>
 							<!-- 핫딜 : 1 / 마감임박 : 2 /신규상품 : 3 /매진임박:인원수가 최대-4일 경우 -->
+							<c:if test="${bean.event eq(0) }">
+								<td>진행 이벤트 없음</td>
+							</c:if>
 							<c:if test="${bean.event eq(1) }">
 								<td>핫딜</td>
 							</c:if>
