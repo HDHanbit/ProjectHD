@@ -31,27 +31,34 @@
 			<div class="col-md-12">
 				<table class="table table-hover">
 					<tr>
-						<th>상품코드</th>
+						<th rowspan="2">상품코드</th>
 						<th>상품명</th>
 						<th>카테고리</th>
 						<th>지역</th>
 						<th>가격</th>
+						<th rowspan="2">&nbsp;</th>
+					</tr>
+					<tr>
 						<th>할인율</th>
 						<th>별점</th>
 						<th>우선순위</th>
 						<th>이벤트 항목</th>
-						<th>&nbsp;</th>
 					</tr>
 
 					<c:forEach items="${plist }" var="bean">
 
 						<tr>
-							<td>${bean.proid }</td>
+							<td rowspan="2">${bean.proid }</td>
 							<td>${bean.proname }</td>
 							<td>${bean.name }</td>
 							<td>${bean.loc }</td>
-							<td><fmt:formatNumber value="${bean.price }" type="currency"
-									currencySymbol="￦" /></td>
+							<td><fmt:formatNumber value="${bean.price }" type="currency" currencySymbol="￦" /></td>
+							<td rowspan="2"><a class="btn btn-success"
+								href="detail?id=${bean.proid }" role="button">수 정</a> <a
+								class="btn btn-danger" href="del?id=${bean.proid }"
+								role="button">삭 제</a></td>
+						</tr>
+						<tr>
 							<td><fmt:formatNumber value="${bean.discount }"
 									type="percent" /></td>
 							<td><fmt:formatNumber value="${bean.point }" pattern=".00" /></td>
@@ -72,10 +79,6 @@
 							<c:if test="${bean.event eq(4) }">
 								<td>매진임박</td>
 							</c:if>
-							<td><a class="btn btn-success"
-								href="detail?id=${bean.proid }" role="button">수 정</a> <a
-								class="btn btn-danger" href="del?id=${bean.proid }"
-								role="button">삭 제</a></td>
 						</tr>
 
 					</c:forEach>
