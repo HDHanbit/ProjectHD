@@ -29,5 +29,9 @@
 	<bean id="productDaoImp" class="com.gl.master.model.product.ProductDaoImp">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
+	<!-- 주문관련 db연결 -->
+	<bean id="orderDaoImp" class="com.gl.master.model.order.OrderDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
 
 </beans>

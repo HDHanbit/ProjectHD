@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+	<!-- 주문 sql -->
+	<select id="selectAll" resultType="com.gl.master.model.order.OrderVo">
+		select * from oder where cancel =0 or cancel = 1
+	</select>
+	<select id="selectCancel" resultType="com.gl.master.model.order.OrderVo">
+		select * from oder where cancel = 1
+	</select>
+	<update id="deleteOne" parameterType="String">
+	update oder set cancel=2 where orderid=#{value}
+	</update>
+	<!-- customer test table 진행 -->
+	<update id="updateCash" parameterType="com.gl.master.model.customer.CustomerVo">
+		update custest set cash=#{cash}, tcash=#{tcash} where id=#{id}
+	</update>
+	<select id="selectPO" parameterType="String" resultType="com.gl.master.model.ProductOrderVo">
+	 select * from (SELECT product.proid, maxp FROM oder INNER JOIN product ON oder.proid=product.proid), (select sum(goperson) as cnt from oder where oder.proid=#{value}) where proid=#{value}
+	</select>
+	
+	
+
+</mapper>

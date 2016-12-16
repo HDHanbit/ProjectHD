@@ -43,7 +43,14 @@ catcode varchar(20)
 
 SELECT * FROM LOC INNER JOIN CAT ON LOC.CATCODE = CAT.CODE
 SELECT * FROM product INNER JOIN CAT ON product.CAT = CAT.code
-
+select sum(goperson) as cnt from oder where oder.proid='KR제주부산305'
+SELECT product.proid,  maxp  FROM oder INNER JOIN product ON oder.proid=product.proid where oder.proid='KR제주부산305'
+select * from (SELECT product.proid, maxp  FROM oder INNER JOIN product ON oder.proid=product.proid), (select sum(goperson) as cnt from oder where oder.proid='KR제주부산305') where proid='KR제주부산305'
+select * from (SELECT product.proid, maxp  FROM oder INNER JOIN product ON oder.proid=product.proid), (select sum(goperson) as cnt from oder where oder.proid='KR제주부산305') where proid='KR제주부산305'
+SELECT price, orderid FROM oder INNER JOIN product ON oder.proid=product.proid where orderid='k_i_9'
+select * from oder where cancel =0 or cancel = 1
+update oder set cancel=0 where cancel=2
+select * from oder
 insert into cat values('HD','핫딜');
 insert into cat values('KR','국내');
 insert into cat values('GL','해외');
@@ -81,6 +88,65 @@ insert into event values('openEvent_1','오픈이벤트!', 'openEvent.png','오픈이벤�
 , 'www.naver.com',null,'2016-12-30');
 
 select * from event
+select * from product
+select * from oder
+drop table oder
+create table oder(
+orderid varchar2(30),
+proid varchar2(30),
+customid varchar2(20),
+paycash number,
+payd varchar2(20),
+goperson number,
+cancel number
+)
+
+insert into ODER values('k_u_9','KR제주부산305','user1',1200000,'2016-12-01',4,0);
+insert into ODER values('k_i_9','KR제주부산305','iuser1',300000,'2016-12-10',1,0);
+insert into ODER values('G_u_1','GL일본Pe301','user2',0,null,3,0);
+insert into ODER values('G_i_4','GL일본아시183','iuser2',712000,'2016-12-16',2,1);
+
+delete from oder
+
+update oder set cancel=1 where customid='iuser2'
+
+GL일본아시183
+
+
+고객 테이블
+
+create table custest(
+id varchar2(20),
+cash number,
+tcash number
+)
+
+insert into custest values('user1',12000,1200000);
+insert into custest values('iuser1',20000,3000000);
+insert into custest values('user2',0,0);
+insert into custest values('iuser2',7120,712000);
+insert into custest values('iuser2',7120,712000);
+delete from custest where id='iuser2'
+select * from custest
+
+
+CREATE TABLE "SCOTT"."CUSTOMER" 
+   (   "ID" VARCHAR2(20 BYTE) NOT NULL ENABLE, 
+   "PW" VARCHAR2(20 BYTE), 
+   "NAME" VARCHAR2(20 BYTE), 
+   "PHONE" NUMBER(20,0), 
+   "CASH" NUMBER, 
+   "GRADE" VARCHAR2(20 BYTE), 
+   "TCASH" NUMBER, 
+    CONSTRAINT "CUSTOMER_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
+  TABLESPACE "SYSTEM" ;
 
 
 
