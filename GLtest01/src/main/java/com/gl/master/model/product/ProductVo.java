@@ -2,6 +2,13 @@ package com.gl.master.model.product;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+import org.jboss.logging.FormatWith;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ProductVo {
@@ -9,16 +16,24 @@ public class ProductVo {
 	private String proname;
 	private String cat;
 	private String loc;
+	
+	@Range(min=1000)
 	private int price;
+	
+	@Range(min=1)
 	private int minp;
+	@Range(min=1)
 	private int maxp;
+	@Pattern(regexp="[0-9]+박+[1-9]+일")
 	private String peris;
 	private String trans;
 	private String exp;
 	private String startd;
 	private String img;// 상세이미지명
 	private String thumb;// 썸네일 이미지명
+	@Range(max=1)
 	private double discount;
+	@Range(min=0,max=10)
 	private double point;
 	private int prio;
 	private int event;

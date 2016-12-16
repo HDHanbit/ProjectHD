@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String url = request.getRealPath("file") + "\\";
+%>
+
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,7 +38,7 @@
 
 		//file 이미지 미리보기 thumb
 		$(function() {
-			$("#thumbFile").on('change', function() {
+			$(document).on('change',"#thumbFile",  function() {
 				readURLTB(this);
 			});
 		});
@@ -52,7 +56,7 @@
 
 		//file 이미지 미리보기 detail img
 		$(function() {
-			$("#imgFile").on('change', function() {
+			$(document).on('change',"#imgFile", function() {
 				readURLIM(this);
 			});
 		});
@@ -91,6 +95,21 @@
 			});
 			return false;
 		});
+
+		//버튼 누를 시 파일 입력창 출력
+		  $(".thumbBtn").on("click", function(){
+			var target = $('.thumbDiv');
+			target.html("<input type=\"file\" class=\"form-control\" id=\"thumbFile\"name=\"thumbFile\" />");
+			$(".thumbBtn").hide();
+			return false;
+		});
+		  $(".imgBtn").on("click", function(){
+				var target = $('.imgDiv');
+				target.html("<input type=\"file\" class=\"form-control\" id=\"imgFile\" name=\"imgFile\" /> ");
+				$(".imgBtn").hide();
+				return false;
+			});
+
 	});
 </script>
 <style type="text/css"></style>
@@ -108,15 +127,17 @@
 			<div class="form-group col-md-12">
 				<div class="col-md-4">
 					<img alt="제품 썸네일 이미지" id="thumbImg"
-						src="/master/file/${bean.thumb }" class="img-thumbnail"
-						width="300px">
+						src="${pageContext.request.contextPath}/file/${bean.thumb}"
+						class="img-thumbnail" width="300px">
 
 				</div>
 				<label for="thumbFile" class="col-md-2 control-label">썸네일
 					이미지</label>
-				<div class="col-md-6">
-					<input type="file" class="form-control" id="thumbFile"
-						name="thumbFile" />
+				<div class="col-md-6 thumbDiv">
+					<!-- <input type="file" class="form-control" id="thumbFile"
+						name="thumbFile" /> -->
+					<button type="button" class="btn btn-success thumbBtn form-control">썸네일 이미지 ${title}</button> 
+					<input hidden="hidden" name="thumb" value="${bean.thumb }">
 					<!-- 파일 업로드 확인 필요! : 업로드된 파일있다면 받아오기 : 불가 -->
 				</div>
 			</div>
@@ -158,7 +179,7 @@
 
 				</div>
 			</div>
-			<div class="form-group col-md-12">
+			<div class="form-group col-md-12 ${errs.price }">
 				<label for="price" class="col-md-2 control-label">가격</label>
 				<div class="col-md-10">
 					<input type="text" class="form-control" id="price" name="price"
@@ -167,19 +188,19 @@
 			</div>
 			<div class="form-group col-md-12">
 				<label for="minp" class="col-md-2 control-label">최소 인원</label>
-				<div class="col-md-4">
+				<div class="col-md-4 ${errs.minp }">
 					<input type="text" class="form-control" id="minp" name="minp"
 						placeholder="최소인원" value="${bean.minp }">
 				</div>
 				<label for="maxp" class="col-md-2 control-label">최대 인원</label>
-				<div class="col-md-4">
+				<div class="col-md-4 ${errs.maxp }">
 					<input type="text" class="form-control" id="maxp" name="maxp"
 						placeholder="최대인원" value="${bean.maxp }">
 				</div>
 			</div>
 			<div class="form-group col-md-12">
 				<label for="peris" class="col-md-2 control-label">기간</label>
-				<div class="col-md-4">
+				<div class="col-md-4 ${errs.peris }">
 					<input type="text" class="form-control" id="peris" name="peris"
 						placeholder="몇박몇일의 형식으로 작성해주십시오." value="${bean.peris }">
 				</div>
@@ -208,13 +229,13 @@
 			</div>
 			<div class="form-group col-md-12">
 				<label for="discount" class="col-md-2 control-label">할인율</label>
-				<div class="col-md-4">
+				<div class="col-md-4 ${errs.discount }">
 					<input type="text" class="form-control" id="discount"
 						name="discount" placeholder="마켓팅팀 제공 할인율 작성. 10%->0.10 형식으로 작성"
 						value="${bean.discount }">
 				</div>
 				<label for="point" class="col-md-2 control-label">평점</label>
-				<div class="col-md-4">
+				<div class="col-md-4 ${errs.point }">
 					<input type="text" class="form-control" id="point" name="point"
 						placeholder="고객 평가 점수 0.00 형식" value="${bean.point }">
 				</div>
@@ -231,7 +252,7 @@
 					<p hidden="hidden" id="eventP">${bean.event }</p>
 					<%-- <input type="text" class="form-control" id="event" name="event"
 						placeholder="마켓팅팀 제공 관련 이벤트 작성" value="${bean.event }"> --%>
-					<select class="eventSel form-control input-default">
+					<select class="eventSel form-control input-default" name="event">
 						<option value="0">진행 event 없음</option>
 						<option value="1">핫딜</option>
 						<option value="2">마감임박</option>
@@ -242,14 +263,17 @@
 			</div>
 			<div class="form-group col-md-12">
 				<div class="col-md-4">
-					<img alt="제품 상세 이미지" id="imgImg" src="/master/file/${bean.img }"
+					<img alt="제품 상세 이미지" id="imgImg"
+						src="${pageContext.request.contextPath}/file/${bean.img}"
 						class="img-thumbnail" width="350px">
 				</div>
 				<label for="imgFile" class="col-md-2 control-label">상품 상세
 					이미지</label>
-				<div class="col-md-6">
-					<input type="file" class="form-control" id="imgFile" name="imgFile" />
-					<!-- 파일 업로드 확인 필요! : 업로드된 파일있다면 받아오기 -->
+				<div class="col-md-6 imgDiv">
+					<!-- <input type="file" class="form-control" id="imgFile" name="imgFile" /> -->
+					<!-- 파일 업로드 확인 필요! : 업로드된 파일있다면 받아오기:불가 -->
+					<button type="button" class="btn btn-success imgBtn form-control">상세이미지 이미지 ${title}</button> 
+					<input hidden="hidden" name="img" value="${bean.img }">
 				</div>
 			</div>
 			<div class="form-group col-md-12">

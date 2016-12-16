@@ -29,10 +29,9 @@
 		UPDATE product SET
 		proname=#{proname}, cat =#{cat}, loc =#{loc}, price
 		=#{price}, minp
-		=#{minp}, maxp =#{maxp}, peris =#{peris}, perin
-		=#{perin}, trans
+		=#{minp}, maxp =#{maxp}, peris =#{peris}, trans
 		=#{trans}, exp =#{exp}, startd =#{startd}, img
-		=#{thumb}, discount
+		=#{img}, thumb=#{thumb}, discount
 		=#{discount}, point =#{point}, prio =#{prio},
 		event =#{event} WHERE
 		proid=#{proid}

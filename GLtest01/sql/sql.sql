@@ -68,7 +68,19 @@ select * from loc inner join CAT on loc.catcode = cat.code where cat.name='해외'
 drop table loc;
 
 
+create table event(
+eid varchar2(30),
+ename varchar2(50),
+eimg varchar2(50),
+eexp varchar2(500),
+eurl varchar2(100),
+eprio number,
+eduring varchar2(30)
+)
+insert into event values('openEvent_1','오픈이벤트!', 'openEvent.png','오픈이벤트 전 해외카테고리 10% 할인'
+, 'www.naver.com',null,'2016-12-30');
 
+select * from event
 
 
 
