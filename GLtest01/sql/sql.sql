@@ -152,6 +152,16 @@ CREATE TABLE "SCOTT"."CUSTOMER"
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
   TABLESPACE "SYSTEM" ;
 
+  
+  create table coupon(
+  cupid varchar2(30),
+  cupname varchar2(50),
+  percent number,
+  customid varchar2(20),
+  cupperi varchar2(20)  
+  )
+  
+  
 
 
 

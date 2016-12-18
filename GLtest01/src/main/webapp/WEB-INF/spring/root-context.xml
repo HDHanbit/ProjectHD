@@ -33,5 +33,9 @@
 	<bean id="orderDaoImp" class="com.gl.master.model.order.OrderDaoImp">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
+	<!-- 쿠폰관련 db연결 -->
+	<bean id="couponDaoImp" class="com.gl.master.model.coupon.CouponDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
 
 </beans>

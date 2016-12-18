@@ -7,6 +7,7 @@
 		<mapper resource="mapper/productMapper.xml" />
 		<mapper resource="mapper/orderMapper.xml" />
 		<mapper resource="mapper/customerMapper.xml" />
+		<mapper resource="mapper/couponMapper.xml" />
 	</mappers>
 </configuration>
 
