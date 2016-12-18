@@ -57,11 +57,12 @@
 		//인원 수 수정 승인
 		var id = $(this).attr("id");
 		var userid = $("."+id).eq(0).text();
+		var price = $("."+id).eq(1).text();
 		var gop = $("#"+id+"go").val();
 		    var r = window.confirm("인원수를 조정하시겠습니까?\n추가 금액 결제 후 인원 수 조정이 가능합니다.\n추가 금액이 결제 완료 되었는지를 확인 후 승인하시길 바랍니다.");
 		    	//alert(url+" href : "+"./insertagreed?"+url);
 		    if (r == true) {
-		        location.href="update?id="+id+"userid="+userid+"gop="+gop ;
+		        location.href="update?id="+id+"&userid="+userid+"&gop="+gop+"&price="+price ;
 		    }
 		    return false;
 	});

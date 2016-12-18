@@ -10,6 +10,7 @@ import com.gl.master.model.LocVo;
 import com.gl.master.model.MasterDao;
 import com.gl.master.model.ProductOrderVo;
 import com.gl.master.model.customer.CustomerVo;
+import com.gl.master.model.product.ProductVo;
 
 public class OrderDaoImp implements MasterDao {
 
@@ -41,6 +42,12 @@ public class OrderDaoImp implements MasterDao {
 	@Override
 	public void updateOne(Object bean) {
 		// TODO Auto-generated method stub
+		OrderVo order = sqlSession.selectOne("order.selectOne",
+				((OrderVo) bean).getOrderid());
+		ProductVo product = sqlSession.selectOne("product.selectOne",
+				order.getProid());
+		int price = ((OrderVo) bean).getGoperson() * product.getPrice();
+		((OrderVo) bean).setPaycash(price);
 		sqlSession.update("order.updateOne", (OrderVo) bean);
 	}
 
@@ -50,27 +57,28 @@ public class OrderDaoImp implements MasterDao {
 		sqlSession.delete("order.deleteOne", id);
 	}
 
+	public void updateCash(CustomerVo bean, String what, int gop, String orderid) {
+		CustomerVo custom = sqlSession.selectOne("customer.selectOne",
+				bean.getId());
+
+		int tcash = custom.getTcash() - bean.getTcash();
+		int cash = custom.getCash() - (int) (bean.getTcash() * 0.01);
+		if (what.equals("del")) {
+			bean.setTcash(tcash);
+			bean.setCash(cash);
+		} else {
+			OrderVo order = sqlSession.selectOne("order.selectOne", orderid);
+			tcash += order.getPaycash();
+			cash += (order.getPaycash() * 0.01);
+			bean.setTcash(tcash);
+			bean.setCash(cash);
+		}
+		sqlSession.update("order.updateCash", bean);
+	}
+
 	public List<OrderVo> selectCancel() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("order.selectCancel");
-	}
-
-	public void updateCash(CustomerVo bean, String what) {
-		CustomerVo custom = sqlSession.selectOne("customer.selectOne",
-				bean.getId());
-		if (what.equals("del")) {
-			int tcash = custom.getTcash() - bean.getTcash();
-			bean.setTcash(tcash);
-			int cash = custom.getCash() - bean.getCash();
-			bean.setCash(cash);
-		} else {
-			int tcash = custom.getTcash() - bean.getTcash();
-			bean.setTcash(tcash);
-			int cash = custom.getCash() - bean.getCash();
-			bean.setCash(cash);
-		}
-
-		sqlSession.update("order.updateCash", bean);
 	}
 
 }

@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -116,27 +117,33 @@ public class OrderController {
 	@RequestMapping(value = "del")
 	public String orderCancel(@RequestParam("id") String orderid, @RequestParam("userid") String userid,
 			@RequestParam("price") int price) {
+		//주문 취소 기능
 		// 항목 cancel 컬럼 2 수정
 
 		orderDaoImp.deleteOne(orderid);
-		int cash = (int) (price * 0.01);
-		CustomerVo bean = new CustomerVo(userid, cash, price);
-		orderDaoImp.updateCash(bean, "del");
+
+		CustomerVo bean = new CustomerVo(userid, 0, price);
+		orderDaoImp.updateCash(bean, "del", 0, orderid);
 
 		return "redirect:/order/total";
 	}
 	//update
 	@RequestMapping(value = "update")
 	public String orderUpdate(@RequestParam("id") String orderid, @RequestParam("userid") String userid,
-			@RequestParam("gop") int gop) {
+			@RequestParam("gop") int gop, @RequestParam("price") int price) {
+		//주문 수정 기능
 		// 항목 인원수, 결제 금액, 결제일 sysdate로 update
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String sysdate = dayTime.format(new Date(time));
+		logger.info(sysdate.toString());
 		
-		/*orderDaoImp.updateOne();
+		OrderVo obean = new OrderVo(orderid, "", userid, sysdate, gop, 0, 0);
+		orderDaoImp.updateOne(obean);
 		
-		int cash = (int) (price * 0.01);
-		CustomerVo bean = new CustomerVo(userid, cash, tcash);
-		orderDaoImp.updateCash(bean, "del");
-		*/
+		CustomerVo bean = new CustomerVo(userid, 0, price);
+		orderDaoImp.updateCash(bean, "up", gop, orderid);
+
 		return "redirect:/order/total";
 	}
 	

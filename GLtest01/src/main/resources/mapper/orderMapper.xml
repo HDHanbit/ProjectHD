@@ -7,11 +7,17 @@
 	<select id="selectAll" resultType="com.gl.master.model.order.OrderVo">
 		select * from oder where cancel =0 or cancel = 1
 	</select>
+	<select id="selectOne" parameterType="String" resultType="com.gl.master.model.order.OrderVo">
+	select * from oder where orderid = #{value}
+	</select>
 	<select id="selectCancel" resultType="com.gl.master.model.order.OrderVo">
 		select * from oder where cancel = 1
 	</select>
 	<update id="deleteOne" parameterType="String">
 	update oder set cancel=2 where orderid=#{value}
+	</update>
+	<update id="updateOne" parameterType="com.gl.master.model.order.OrderVo">
+	update oder set cancel=0, paycash=#{paycash}, payd=#{payd}, goperson=#{goperson} where orderid=#{orderid}	
 	</update>
 	<!-- customer test table 진행 -->
 	<update id="updateCash" parameterType="com.gl.master.model.customer.CustomerVo">

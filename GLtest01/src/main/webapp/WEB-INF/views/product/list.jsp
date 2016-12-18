@@ -52,7 +52,7 @@
 							<td>${bean.proname }</td>
 							<td>${bean.name }</td>
 							<td>${bean.loc }</td>
-							<td><fmt:formatNumber value="${bean.price }" type="currency" currencySymbol="￦" /></td>
+							<td><fmt:formatNumber value="${bean.price*(1-bean.discount) }" type="currency" currencySymbol="￦" /></td>
 							<td rowspan="2"><a class="btn btn-success"
 								href="detail?id=${bean.proid }" role="button">수 정</a> <a
 								class="btn btn-danger" href="del?id=${bean.proid }"

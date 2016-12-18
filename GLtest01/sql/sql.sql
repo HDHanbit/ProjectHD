@@ -101,10 +101,14 @@ goperson number,
 cancel number
 )
 
-insert into ODER values('k_u_9','KR力林何魂305','user1',1200000,'2016-12-01',4,0);
-insert into ODER values('k_i_9','KR力林何魂305','iuser1',300000,'2016-12-10',1,0);
+insert into ODER values('k_u_9','KR力林何魂302','user1',1200000,'2016-12-01',4,0);
+insert into ODER values('k_i_9','KR力林何魂302','iuser1',300000,'2016-12-10',1,0);
 insert into ODER values('G_u_1','GL老夯Pe301','user2',0,null,3,0);
 insert into ODER values('G_i_4','GL老夯酒矫183','iuser2',712000,'2016-12-16',2,1);
+insert into ODER values('F_i_9','FM券阂瘤窍024','iuser2',16000,'2016-12-30',2,0);
+
+select * from custest
+
 
 delete from oder
 
