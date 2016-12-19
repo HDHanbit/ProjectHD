@@ -125,13 +125,23 @@ cash number,
 tcash number
 )
 
-insert into custest values('user1',12000,1200000);
-insert into custest values('iuser1',20000,3000000);
-insert into custest values('user2',0,0);
-insert into custest values('iuser2',7120,712000);
-insert into custest values('iuser2',7120,712000);
+
+CREATE TABLE custest(
+id varchar2(20),
+pw varchar2(20),
+name varchar2(20),
+phone number,
+cash number,
+tcash number,
+grade varchar2(20)
+);
+insert into custest values('user1','1234','유저1',01012341234,12000,1200000,'프로썸러');
+insert into custest values('iuser1','1234','아이유저1',01012341234,20000,3000000,'카사노바');
+insert into custest values('user2','1234','유저2',01012341234,0,0,'프로썸러');
+insert into custest values('iuser2','1234','아이유저2',01012341234,7120,712000,'프로썸러');
 delete from custest where id='iuser2'
 select * from custest
+select * from custest where id like '%i%'
 
 
 CREATE TABLE "SCOTT"."CUSTOMER" 
@@ -160,8 +170,8 @@ CREATE TABLE "SCOTT"."CUSTOMER"
   customid varchar2(20),
   cupperi varchar2(20)  
   )
-  
-  
+  select * from coupon
+drop table custest
 
 
 

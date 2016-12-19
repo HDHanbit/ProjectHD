@@ -4,5 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="coupon">
 	<!-- 쿠폰 sql -->
-
+	<insert id="insertOne" parameterType="com.gl.master.model.coupon.CouponVo">
+		insert into coupon values
+		(#{cupid},#{cupname},#{percent},#{customid},#{cupperi})
+	</insert>
 </mapper>

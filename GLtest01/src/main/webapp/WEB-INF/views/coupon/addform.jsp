@@ -15,29 +15,40 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/master/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	$(".searchBtn").on("click", function() {
-		var target = $('.searchDiv');
-		var id = $("#search").val();
-		$.ajax({
-			"url" : "searchUser",
-			"data" : {
-				'id' : id
-			},
-			'success' : function(data, textStatus, jqXHR) {
-				target.html("");
-				data = data.replace(/\+/gi, '%20');
-				data = decodeURIComponent(data);
-				target.append(data);
-			},
-			"error" : function(jqXHR, textStatus) {
-				alert("통신실패 " + textStatus + "(code): " + jqXHR.status);
-			},
+	$(document).ready(function() {
+		$(".searchBtn").on("click", function() {
+			var target = $('.searchDiv');
+			var id = $("#search").val();
+			$.ajax({
+				"url" : "searchUser",
+				"data" : {
+					'id' : id
+				},
+				'success' : function(data, textStatus, jqXHR) {
+					target.html("");
+					data = data.replace(/\+/gi, '%20');
+					data = decodeURIComponent(data);
+					target.append(data);
+				},
+				"error" : function(jqXHR, textStatus) {
+					alert("통신실패 " + textStatus + "(code): " + jqXHR.status);
+				},
 
+			});
+			return false;
 		});
-		return false;
+		$(document).on('click', '.useridBtn', function() {
+			var id = $(this).attr("id");
+			$("#customid").attr("value", id);
+		});
+
 	});
 </script>
-<style type="text/css"></style>
+<style type="text/css">
+@import
+	url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css")
+	;
+</style>
 </head>
 <body>
 	<div class="container">
@@ -51,17 +62,25 @@
 		</div> -->
 		<h1>쿠폰 입력 페이지</h1>
 		<div class="row">
+		<c:if test="${success ne null }">
+			<div class="col-md-12 panel panel-success">
+				<div class="panel-heading">${success }</div>
+				<div class="panel-body">${successMSG }</div>
+			</div>
+			</c:if>
+		</div>
+		<div class="row">
 			<div class="col-md-12">
-				<form action="add" method="post">
+				<form action="./" method="post">
 					<!--쿠폰생성 폼-->
 					<div class="form-group col-md-4">
-						<label class="">쿠폰생성</label>
+						<label class="control-label">쿠폰생성</label>
 					</div>
 					<div class="form-group col-md-8">
 						<label for="cupid" class="col-md-4 control-label">쿠폰ID</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="cupid" name="cupid"
-								placeholder="쿠폰코드는 자동으로 작성됩니다." readonly="readonly">
+								value="${cupid }" readonly="readonly">
 						</div>
 					</div>
 					<div class="form-group col-md-4">
@@ -77,7 +96,7 @@
 					<div class="form-group col-md-4">
 						<label class="">&nbsp;</label>
 					</div>
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-8 ${errs.percent }">
 						<label for="percent" class="col-md-4 control-label">적용률</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="percent"
@@ -85,24 +104,51 @@
 
 						</div>
 					</div>
+					<div class="form-group col-md-4">
+						<label class="">&nbsp;</label>
+					</div>
+					<div class="form-group col-md-8">
+						<label for="cupperi" class="col-md-4 control-label">기한</label>
+						<div class="col-md-8">
+							<input type="date" class="form-control" id="cupperi"
+								name="cupperi" min="${sysdate }">
+
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<label class="">&nbsp;</label>
+					</div>
+					<div class="form-group col-md-8">
+						<label for="customid" class="col-md-4 control-label">타겟</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="customid"
+								name="customid" placeholder="아래 검색을 통해 입력하세요."
+								readonly="readonly">
+						</div>
+					</div>
 					<!--고객 리스트-->
-				</form>
-				<div class="form-group col-md-4">
-					<label class="">받는 고객 설정</label>
-				</div>
-				<form action="searchUser" method="post">
+					<div class="form-group col-md-4">
+						<label class="control-label">받는 고객 설정</label>
+					</div>
+
 					<div class="form-group col-md-8">
 						<label for="search" class="col-md-4 control-label">고객 검색</label>
 						<div class="col-md-8 form-group">
 							<input type="text" class="form-control col-md-8" id="search"
 								name="search" placeholder="아이디 검색">
-							<button type="submit" class="btn btn-info form-control searchBtn">
+							<button type="button" class="btn btn-info form-control searchBtn">
 								<span class="glyphicon glyphicon-search"></span> 검색
 							</button>
 						</div>
 					</div>
+					<div class="form-group col-md-12">
+						<p class="col-md-2">&nbsp;</p>
+						<button type="submit" class="btn btn-primary col-md-4">입력</button>
+						<button type="reset" class="btn btn-default col-md-4">취소</button>
+						<p class="col-md-2">&nbsp;</p>
+					</div>
 				</form>
-				<div class="col-md-12 searchDiv">검색결과 노출</div>
+				<div class="col-md-12 searchDiv"></div>
 			</div>
 		</div>
 	</div>

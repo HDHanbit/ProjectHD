@@ -1,10 +1,15 @@
 package com.gl.master.model.coupon;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
+
 public class CouponVo {
 	
 	private String cupid;
 	private String cupname;
-	private int percent;
+	@Range(max=1)
+	private double percent;
 	private String customid;
 	private String cupperi;
 	
@@ -12,7 +17,7 @@ public class CouponVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CouponVo(String cupid, String cupname, int percent, String customid,
+	public CouponVo(String cupid, String cupname, double percent, String customid,
 			String cupperi) {
 		super();
 		this.cupid = cupid;
@@ -38,11 +43,11 @@ public class CouponVo {
 		this.cupname = cupname;
 	}
 
-	public int getPercent() {
+	public double getPercent() {
 		return percent;
 	}
 
-	public void setPercent(int percent) {
+	public void setPercent(double percent) {
 		this.percent = percent;
 	}
 

@@ -18,8 +18,15 @@ public class CouponDaoImp{
 	public List<CustomerVo> selectUser(String search) {
 		// TODO Auto-generated method stub
 		
-		search += "%"+search+"%";
-		return sqlSession.selectList("", search);
+		search = "%"+search+"%";
+		return sqlSession.selectList("customer.selectUser", search);
+	}
+
+	public void insertOne(CouponVo bean) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.insert("coupon.insertOne", bean);		
+		
 	}
 
 	
