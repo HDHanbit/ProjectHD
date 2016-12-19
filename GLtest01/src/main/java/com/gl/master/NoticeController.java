@@ -32,7 +32,7 @@ public class NoticeController {
 	// 공지사항, 팝업 컨트롤러
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(CouponController.class);
+			.getLogger(NoticeController.class);
 
 	@Autowired
 	private NoticeDaoImp noticeDaoImp;

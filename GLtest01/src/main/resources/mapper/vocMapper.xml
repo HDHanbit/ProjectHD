@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="voc">
+	<!--voc sql -->
+	<select id="selectAllFAQ" resultType="com.gl.master.model.voc.VocVo">
+		select * from voc where vocid like 'FAQ%'
+	</select>
+	<select id="selectAllOneQ" resultType="com.gl.master.model.voc.VocVo">
+		select * from voc where customid is not null and proid is null
+	</select>
+	<select id="selectAllProQ" resultType="com.gl.master.model.voc.VocVo">
+		select * from voc where proid is not null
+	</select>
+	<delete id="deleteOne" parameterType="String">
+		delete from voc where vocid=#{value}
+	</delete>
+	<select id="selectOne" parameterType="String"
+		resultType="com.gl.master.model.voc.VocVo">
+		select * from voc where vocid=#{value}
+	</select>
+	<insert id="insertOne" parameterType="com.gl.master.model.voc.VocVo">
+		insert into voc values(#{vocid},#{voctitle},#{voccontent},#{customid,
+		jdbcType=VARCHAR},#{answer},#{proid, jdbcType=VARCHAR})
+	</insert>
+	<update id="updateOne" parameterType="com.gl.master.model.voc.VocVo">
+		update voc set voctitle=#{voctitle}, voccontent=#{voccontent},
+		customid=#{customid, jdbcType=VARCHAR},answer=#{answer},proid=#{proid,
+		jdbcType=VARCHAR} where vocid=#{vocid}
+	</update>
+</mapper>

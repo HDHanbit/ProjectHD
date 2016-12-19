@@ -41,5 +41,9 @@
 	<bean id="noticeDaoImp" class="com.gl.master.model.notice.NoticeDaoImp">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
+	<!-- voc관련 db연결 -->
+	<bean id="vocDaoImp" class="com.gl.master.model.voc.VocDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
 
 </beans>

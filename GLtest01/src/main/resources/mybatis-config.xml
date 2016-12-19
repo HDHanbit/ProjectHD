@@ -9,6 +9,7 @@
 		<mapper resource="mapper/customerMapper.xml" />
 		<mapper resource="mapper/couponMapper.xml" />
 		<mapper resource="mapper/noticeMapper.xml" />
+		<mapper resource="mapper/vocMapper.xml" />
 	</mappers>
 </configuration>
 

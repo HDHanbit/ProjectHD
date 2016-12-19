@@ -223,12 +223,17 @@ insert into voc values('adte2','testtesttest','테스트중입니다.','admin','test',n
 insert into voc values('us오키9','오키나와 패키지에 대해 문의드립니다.','오키나와 패키지 안에는 무엇이 있나요?','user1',null,'GL일본아시183');
 insert into voc values('iu오키3','오키나와 가격이요','가격이 왜케 비싸나요?','iuser1','고객님께 저렴한 상품으로 다가가겠습니다. 감사합니다.','GL일본아시183');
 faq
-insert into voc values('FAQ1','회원가입은 어떻게 하나요?','회원가입을 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
+insert into voc values('FAQ_3_N','회원가입은 어떻게 하나요?','회원가입을 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
 '회원가입 버튼을 누른 후 회원가입 페이지에서 회원가입을 진행하시면 됩니다.',null);
-insert into voc values('FAQ2','회원탈퇴는 어떻게 하나요?','회원탈퇴 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
+insert into voc values('FAQ_4_Y','회원탈퇴는 어떻게 하나요?','회원탈퇴 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
 '로그인 후 회원 탈퇴버튼을 누르면 회원탈퇴 신청이 됩니다. 관리자에서 확인 후 회원 탈퇴가 가능합니다. 탈퇴 후에는 고객님의 모든 정보를 삭제합니다.',null);
 
 
+select * from voc where proid is not null
+select * from voc where customid is not null and proid is null
+select * from voc where vocid like 'FAQ%'
+delete from voc where vocid like 'FAQ%'
+delete from voc
 
 
 

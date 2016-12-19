@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
-	<!-- 쿠폰 sql -->
+	<!-- 공지사항 팝업 sql -->
 	<select id="selectAll" resultType="com.gl.master.model.notice.NoticeVo">
 		select * from notice
 	</select>
