@@ -126,7 +126,7 @@ tcash number
 )
 
 
-CREATE TABLE custest(
+CREATE TABLE customer(
 id varchar2(20),
 pw varchar2(20),
 name varchar2(20),
@@ -135,11 +135,15 @@ cash number,
 tcash number,
 grade varchar2(20)
 );
-insert into custest values('user1','1234','유저1',01012341234,12000,1200000,'프로썸러');
-insert into custest values('iuser1','1234','아이유저1',01012341234,20000,3000000,'카사노바');
-insert into custest values('user2','1234','유저2',01012341234,0,0,'프로썸러');
-insert into custest values('iuser2','1234','아이유저2',01012341234,7120,712000,'프로썸러');
-delete from custest where id='iuser2'
+
+drop table custest
+insert into customer values('user1','12341234','유저1',01012341234,12000,1200000,'프로썸러');
+insert into customer values('iuser1','12341234','아이유저1',01012341234,20000,3000000,'카사노바');
+insert into customer values('user2','12341234','유저2',01012341234,0,0,'프로썸러');
+insert into customer values('iuser2','12341234','아이유저2',01012341234,7120,712000,'프로썸러');
+insert into customer values('admin','12341234','관리자',01012341234,0,0,'흙흙모쏠');
+
+delete from customer 
 select * from custest
 select * from custest where id like '%i%'
 
@@ -172,6 +176,72 @@ CREATE TABLE "SCOTT"."CUSTOMER"
   )
   select * from coupon
 drop table custest
+drop table notice
+
+create table notice(
+notid varchar2(20),
+notitle varchar2(100),
+notcontent varchar2(1000),
+notfile varchar2(50),
+notday date
+)
+
+insert into notice values('pop1', '팝업',null,'popup.png',sysdate);
+insert into notice values('notice1', '신규오픈 공지사항입니다.',
+'greenlight 여행사가 신규오픈하게 되었습니다. 가입하셔서 다양한 즐거움을 누리시길 바랍니다.',null,sysdate);
+select * from notice
+
+ CREATE TABLE "SCOTT"."QNA" 
+   (	"NUM" VARCHAR2(1111 BYTE) NOT NULL ENABLE, 
+	"LIST" VARCHAR2(100 BYTE), 
+	"CONTENT" VARCHAR2(4000 BYTE), 
+	"NALJA" DATE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+
+create table voc(
+vocid varchar2(20),
+voctitle varchar2(100),
+voccontent varchar2(1000),
+customid varchar2(100),
+answer varchar2(1000),
+proid varchar2(30)
+)
+
+select * from product
+
+  
+1:1문의
+insert into voc values('us아이7','아이디를 바꾸고 싶어요.','아이디를 바꾸고 싶은데 어떻게 하나요?','user1',null,null);
+insert into voc values('us환불4','환불하고 싶어요.','환불환불환불환불환불환불환불예에~','user1','환불신청을 하시면 환불해 드립니다~',null);
+insert into voc values('iu아이7','아이디를 바꾸고 싶어요.','아이디를 바꾸고 싶은데 어떻게 하나요?','iuser1',null,null);
+insert into voc values('adte2','testtesttest','테스트중입니다.','admin','test',null);
+상품문의
+insert into voc values('us오키9','오키나와 패키지에 대해 문의드립니다.','오키나와 패키지 안에는 무엇이 있나요?','user1',null,'GL일본아시183');
+insert into voc values('iu오키3','오키나와 가격이요','가격이 왜케 비싸나요?','iuser1','고객님께 저렴한 상품으로 다가가겠습니다. 감사합니다.','GL일본아시183');
+faq
+insert into voc values('FAQ1','회원가입은 어떻게 하나요?','회원가입을 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
+'회원가입 버튼을 누른 후 회원가입 페이지에서 회원가입을 진행하시면 됩니다.',null);
+insert into voc values('FAQ2','회원탈퇴는 어떻게 하나요?','회원탈퇴 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
+'로그인 후 회원 탈퇴버튼을 누르면 회원탈퇴 신청이 됩니다. 관리자에서 확인 후 회원 탈퇴가 가능합니다. 탈퇴 후에는 고객님의 모든 정보를 삭제합니다.',null);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

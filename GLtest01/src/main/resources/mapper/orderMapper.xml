@@ -21,7 +21,7 @@
 	</update>
 	<!-- customer test table 진행 -->
 	<update id="updateCash" parameterType="com.gl.master.model.customer.CustomerVo">
-		update custest set cash=#{cash}, tcash=#{tcash} where id=#{id}
+		update customer set cash=#{cash}, tcash=#{tcash} where id=#{id}
 	</update>
 	<select id="selectPO" parameterType="String" resultType="com.gl.master.model.ProductOrderVo">
 	 select * from (SELECT product.proid, maxp FROM oder INNER JOIN product ON oder.proid=product.proid), (select sum(goperson) as cnt from oder where oder.proid=#{value}) where proid=#{value}

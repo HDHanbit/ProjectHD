@@ -51,7 +51,7 @@ import com.gl.master.model.product.ProductVo;
 @Controller
 @RequestMapping("/coupon/")
 public class CouponController {
-	// 상품 컨트롤러
+	// 쿠폰 컨트롤러
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(CouponController.class);

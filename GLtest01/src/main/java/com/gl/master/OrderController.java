@@ -49,7 +49,7 @@ import com.gl.master.model.product.ProductVo;
 @Controller
 @RequestMapping("/order/")
 public class OrderController {
-	// 상품 컨트롤러
+	// 주문 컨트롤러
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(OrderController.class);

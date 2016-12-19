@@ -37,5 +37,9 @@
 	<bean id="couponDaoImp" class="com.gl.master.model.coupon.CouponDaoImp">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
+	<!-- 공지사항,팝업 관련 db연결 -->
+	<bean id="noticeDaoImp" class="com.gl.master.model.notice.NoticeDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
 
 </beans>

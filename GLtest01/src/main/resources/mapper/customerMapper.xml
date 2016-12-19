@@ -5,9 +5,9 @@
 <mapper namespace="customer">
 	<!-- 고객 sql -->
 	<select id="selectOne" parameterType="String" resultType="com.gl.master.model.customer.CustomerVo">
-		select * from custest where id=#{value}
+		select * from customer where id=#{value}
 	</select>
 	<select id="selectUser" parameterType="String" resultType="com.gl.master.model.customer.CustomerVo">
-	select * from custest where id like #{value}
+	select * from customer where id like #{value}
 	</select>
 </mapper>

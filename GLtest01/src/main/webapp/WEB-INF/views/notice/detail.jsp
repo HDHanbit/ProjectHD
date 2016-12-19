@@ -14,109 +14,43 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/master/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		//입력된 값에 따라 미리 선택되어 있도록 하기 위한 js
-		var cat = $("#cat").text();
-		if (cat == "") {
-			$(".catSel").val("핫딜").attr("selected", "selected");
-
-		} else {
-
-			$(".catSel").val(cat).attr("selected", "selected");
-		}
-		var event = $("#eventP").text();
-		if (event == "") {
-			$(".eventSel").val("0").attr("selected", "selected");
-
-		} else {
-
-			$(".eventSel").val(event).attr("selected", "selected");
-		}//cat선택시 해당 지역을 노출하기 위한 js
-
-		//file 이미지 미리보기 thumb
-		$(function() {
-			$(document).on('change',"#thumbFile",  function() {
-				readURLTB(this);
-			});
+$(document).ready(function() {
+	//입력된 값에 따라 미리 선택되어 있도록 하기 위한 js
+	
+	//file 이미지 미리보기 thumb
+	$(function() {
+		$(document).on('change',"#thumbFile",  function() {
+			readURLTB(this);
 		});
-
-		function readURLTB(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					$('#thumbImg').attr('src', e.target.result);
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}//file 이미지 미리보기 thumb
-
-		//file 이미지 미리보기 detail img
-		$(function() {
-			$(document).on('change',"#imgFile", function() {
-				readURLIM(this);
-			});
-		});
-
-		function readURLIM(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					$('#imgImg').attr('src', e.target.result);
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}//file 이미지 미리보기 detail img
-
-		//비동기 통신으로 진행
-		$(".catbtn").on("click", function() {
-			var catname = $(".catSel").val();
-			var target = $('.cat');
-			/* var param= */
-			$.ajax({
-				"url" : "cat",
-				"data" : {
-					'catName' : catname
-				},
-				'success' : function(data, textStatus, jqXHR) {
-					target.html("");
-					data = data.replace(/\+/gi, '%20');
-					data = decodeURIComponent(data);
-					target.append(data);
-				},
-				"error" : function(jqXHR, textStatus) {
-					alert("통신실패 " + textStatus + "(code): " + jqXHR.status);
-				},
-
-			});
-			return false;
-		});
-
-		//버튼 누를 시 파일 입력창 출력
-		  $(".thumbBtn").on("click", function(){
-			var target = $('.thumbDiv');
-			target.html("<input type=\"file\" class=\"form-control\" id=\"thumbFile\"name=\"thumbFile\" />");
-			$(".thumbBtn").hide();
-			return false;
-		});
-		  $(".imgBtn").on("click", function(){
-				var target = $('.imgDiv');
-				target.html("<input type=\"file\" class=\"form-control\" id=\"imgFile\" name=\"imgFile\" /> ");
-				$(".imgBtn").hide();
-				return false;
-			});
-
 	});
+	function readURLTB(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('#thumbImg').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}//file 이미지 미리보기 thumb
+
+	//버튼 누를 시 파일 입력창 출력
+	  $(".thumbBtn").on("click", function(){
+		var target = $('.thumbDiv');
+		target.html("<input type=\"file\" class=\"form-control\" id=\"thumbFile\"name=\"thumbFile\" />");
+		$(".thumbBtn").hide();
+		return false;
+	});
+});
 </script>
 <style type="text/css"></style>
 </head>
 <body>
 	<!-- 
 		//add:그냥 입력으로 폼 보여주기
-		//proid:값을 가진 입력 폼으로 수정가능하게 보여주기 
+		//notid:값을 가진 입력 폼으로 수정가능하게 보여주기 
 		//title : 입력 / 수정
-		//ProductVo : bean
+		//NoticVo : bean
 		-->
 	<div class="container">
 		<h1>${title }페이지</h1>
