@@ -38,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gl.master.model.CatVo;
 import com.gl.master.model.LocVo;
 import com.gl.master.model.MasterDao;
+import com.gl.master.model.coupon.CouponVo;
 import com.gl.master.model.customer.CustomerDaoImp;
 import com.gl.master.model.customer.CustomerVo;
 
@@ -54,7 +55,7 @@ public class CustomerController {
 
 	@RequestMapping(value = "list")
 	public String customerList(Model model) {
-		// 상품 리스트 보여주기
+		//  고객 리스트 보여주기
 		logger.info("customerList index");
 
 		List<CustomerVo> list = cusDaoImp.selectAll();
@@ -70,23 +71,20 @@ public class CustomerController {
 	@RequestMapping(value = "detail")
 	public String customerDetail(@RequestParam("id") String id, Model model,
 			HttpServletRequest request) {
-		// add:그냥 입력으로 폼 보여주기
+		
 		// cusid:값을 가진 입력 폼으로 수정가능하게 보여주기
 
-		if (id.equals("add")) {
-
-			logger.info("customer-detail/add form");
-			model.addAttribute("title", "입력");
-			model.addAttribute("url", "insert");
-		} else {
+		
 			logger.info("customer-detail/parameter ok");
 			CustomerVo bean = cusDaoImp.selectOne(id);
+			List<CouponVo> list = cusDaoImp.selectCoupon(id);
 			logger.info(bean.toString());
 
 			model.addAttribute("title", "수정");
 			model.addAttribute("bean", bean);
+			model.addAttribute("list", list);
 			model.addAttribute("url", "update");
-		}
+	
 		return "customer/detail";
 	}
 
@@ -98,32 +96,40 @@ public class CustomerController {
 
 		return "redirect:/customer/list";
 	}
+	@RequestMapping(value = "delete")
+	public String couponDelete(@RequestParam("customid") String customid,
+			@RequestParam("cupid") String cupid) {
+		// 항목삭제
+
+		cusDaoImp.deleteCoupon(cupid);
+
+		return "redirect:/customer/detail?id="+customid;
+	}
 
 
 	// bean=>getter, setter로!
-	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String updatecustomer(@Valid CustomerVo bean, BindingResult result,
-			Model model, HttpServletRequest request) {
-		logger.info("vaildation check");
-		
-		if (result.hasErrors()) {
+		@RequestMapping(value = "update", method = RequestMethod.POST)
+		public String updateCustomer(@Valid CustomerVo bean, BindingResult result,
+				Model model, HttpServletRequest request) {
 			logger.info("vaildation check");
-			Map errMsgs = new HashMap<String, String>();
-			List<FieldError> errs = result.getFieldErrors();
-			for (FieldError err : errs) {
-				logger.info(err.getField() + ":" + err.getDefaultMessage());
-				errMsgs.put(err.getField(), "has-error");
-			}
-			model.addAttribute("errs", errMsgs);
-
-			model.addAttribute("bean", bean);
-			model.addAttribute("title", "수정");
-			model.addAttribute("url", "update");
 			
+			if (result.hasErrors()) {
+				logger.info("vaildation check");
+				Map errMsgs = new HashMap<String, String>();
+				List<FieldError> errs = result.getFieldErrors();
+				for (FieldError err : errs) {
+					logger.info(err.getField() + ":" + err.getDefaultMessage());
+					errMsgs.put(err.getField(), "has-error");
+				}
+				model.addAttribute("errs", errMsgs);
+				model.addAttribute("bean", bean);
+				model.addAttribute("title", "수정");
+				model.addAttribute("url", "update");
+				return "customer/detail";
+			}
+			cusDaoImp.updateOne(bean);
+			return "redirect:/customer/list";
 		}
-
-		return "customer/detail";
-	}
 
 	
 }

@@ -42,6 +42,7 @@
 	}
 </script>
 
+
 <style>
 html, body, h1, h2, h3, h4, h5 {
 	font-family: "Raleway", sans-serif
@@ -58,6 +59,31 @@ html, body, h1, h2, h3, h4, h5 {
 	width: 50px;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+	//입력된 값에 따라 미리 선택되어 있도록 하기 위한 js
+	var grade = $("#gradeP").text();
+	if (grade == "") {
+		$(".gradeSel").val("흙흙모쏠").attr("selected", "selected");
+	} else {
+		$(".gradeSel").val(grade).attr("selected", "selected");
+	}
+	$(document).on('click','.delBtn',function(){
+		//삭제 승인
+		var customid = $("#id").val();
+		var cupid = $(this).attr("id");
+		var r = window.confirm("쿠폰을 취소하시겠습니까?\n취소가 불가하오니, 한번 더확인 하신 뒤 버튼을 눌러주십시오.");
+		    if (r == true) {
+		        location.href="delete?customid="+customid+"&cupid="+cupid;
+		    }
+		    return false;
+	});
+});
+
+//쿠폰 삭제
+
+
+</script>
 </head>
 <body class="w3-light-grey">
 	<%@ include file="../template/container.jsp"%>
@@ -103,13 +129,13 @@ html, body, h1, h2, h3, h4, h5 {
 					<label for="phone" class="col-md-2 control-label">고객핸드폰번호</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" id="phone" name="phone"
-							placeholder="바꿀수있나?" value="${bean.phone }">
+							placeholder="바꿀수있나?" value="0${bean.phone }">
 					</div>
 				</div>
 
 
 				<div class="form-group col-md-12">
-					<label for="cash" class="col-md-2 control-label">고객누적금액</label>
+					<label for="cash" class="col-md-2 control-label">고객적립금</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" id="cash" name="cash"
 							placeholder="고객누적금액(기준 : 원)" value="${bean.cash }">
@@ -117,27 +143,58 @@ html, body, h1, h2, h3, h4, h5 {
 				</div>
 
 				<div class="form-group col-md-12 ">
-					<label for="tcash" class="col-md-2 control-label">고객적립금</label>
+					<label for="tcash" class="col-md-2 control-label">고객누적금액</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" id="tcash" name="tcash"
 							placeholder="고객적립금(기준 : 원)" value="${bean.tcash }">
 					</div>
 				</div>
 
-				<div class="form-group col-md-12 ${errs.grade }">
-					<label for="grade" class="col-md-2 control-label">고객등급</label>
-					<div class="col-md-10">
-						<input type="text" class="form-control" id="grade" name="grade"
-							placeholder="0원~1000000원 등급1" value="${bean.grade }">
-					</div>
-				</div>
-
-
 				<div class="form-group col-md-12">
-					<button type="submit" class="btn btn-primary">${title}</button>
-					<button type="reset" class="btn btn-default">취소</button>
+			<label for="grade" class="col-md-2 control-label">고객등급</label>
+				<div class="col-md-4">
+					<p hidden="hidden" id="gradeP">${bean.grade }</p>
+					<%-- <input type="text" class="form-control" id="event" name="event"
+						placeholder="마켓팅팀 제공 관련 이벤트 작성" value="${bean.event }"> --%>
+					<select class="gradeSel form-control input-default" name="grade">
+						<option value="흙흙모쏠">흙흙모쏠</option>
+						<option value="프로썸러">프로썸러</option>
+						<option value="파워러버">파워러버</option>
+						<option value="카사노바">카사노바</option>
+					</select>
 				</div>
-			</form>
+			</div>
+			<div class="form-group col-md-12">	
+			<label for="coupon" class="col-md-2 control-label">고객보유쿠폰</label>
+				<div class="col-md-10">
+					<table class="table table-hover">
+						<tr>
+							<!--  고객아이디, 고객비번, 고객이름, 고객핸드폰번호, 고객누적금액, 고객등급, 고객마일리지 -->
+							<th>쿠폰ID</th>
+							<th>쿠폰이름</th>
+							<th>할인율</th>
+							<th>고객이름</th>
+							<th>&nbsp;</th>
+						</tr>
+						<c:forEach items="${list }" var="bean">
+							<tr>
+								<td>${bean.cupid }</td>
+								<td>${bean.cupname }</td>
+								<td>${bean.percent }</td>	
+								<td>${bean.customid }</td>	
+								<td><a class="btn delBtn btn-danger" id="${bean.cupid}" role="button">삭 제</a></td>
+								
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</div>	
+	
+			<div class="form-group col-md-12">
+				<button type="submit" class="btn btn-primary">${title}</button>
+				<button type="reset" class="btn btn-default">취소</button>
+			</div>
+		</form>
 		</div>
 	</div>
 </body>

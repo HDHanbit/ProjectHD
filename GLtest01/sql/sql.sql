@@ -141,8 +141,8 @@ insert into customer values('user1','12341234','À¯Àú1',01012341234,12000,1200000
 insert into customer values('iuser1','12341234','¾ÆÀÌÀ¯Àú1',01012341234,20000,3000000,'Ä«»ç³ë¹Ù');
 insert into customer values('user2','12341234','À¯Àú2',01012341234,0,0,'ÇÁ·Î½æ·¯');
 insert into customer values('iuser2','12341234','¾ÆÀÌÀ¯Àú2',01012341234,7120,712000,'ÇÁ·Î½æ·¯');
-insert into customer values('admin','12341234','°ü¸®ÀÚ',01012341234,0,0,'ÈëÈë¸ð½ò');
-
+insert into customer values('admin','12341234','°ü¸®ÀÚ',01012341234,99999,99999999,'ÈëÈë¸ð½ò');
+delete from customer where id='admin'
 delete from customer 
 select * from custest
 select * from custest where id like '%i%'
@@ -236,15 +236,27 @@ select * from voc where vocid like 'FAQ%'
 delete from voc where vocid like 'FAQ%'
 delete from voc
 
+create table masterid(
+mid varchar2(30),
+mpw varchar2(30)
+)
+insert into masterid values('admin','admin1234!');
 
+select * from masterid
 
+select * from customer
+insert into customer values('test1','12341234','Å×½ºÆ®',00000000000,0,4000000,'ÈëÈë¸ð½ò')
+select * from customer where tcash >= 2000000 and tcash < 6000000
+update customer set grade='ÇÁ·Î½æ·¯' where tcash >= 2000000 and tcash < 6000000
 
+insert into coupon values('grade_2','µî±ÞÄíÆù!',0.1,(select id from customer where grade='ÇÁ·Î½æ·¯'),'2016-12-20');
+select * from coupon
 
-
-
-
-
-
+cupid varchar2(30),
+  cupname varchar2(50),
+  percent number,
+  customid varchar2(20),
+  cupperi varchar2(20)  
 
 
 

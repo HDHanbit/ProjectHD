@@ -1,6 +1,8 @@
 package com.gl.master;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -80,6 +82,9 @@ public class NoticeController {
 			try {
 				File file = new File(url + FileName);
 				popFile.transferTo(file);
+				fileCopy(url + FileName,
+						"C:\\Tomcat 7.0\\webapps\\market\\file\\"
+								+ FileName);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -103,5 +108,23 @@ public class NoticeController {
 		noticeDaoImp.deleteOne(notid);
 		return "redirect:/notice/";
 	}
+	//파일 카피 관련
+		public void fileCopy(String inFileName, String outFileName) {
+			try {
+				FileInputStream fis = new FileInputStream(inFileName);
+				FileOutputStream fos = new FileOutputStream(outFileName);
+
+				int data = 0;
+				while ((data = fis.read()) != -1) {
+					fos.write(data);
+				}
+				fis.close();
+				fos.close();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}// filecopy
 
 }

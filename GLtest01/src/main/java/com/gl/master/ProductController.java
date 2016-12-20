@@ -1,6 +1,8 @@
 package com.gl.master;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -167,28 +169,12 @@ public class ProductController {
 		MultipartFile detailFile = bean.getImgFile();
 
 		if (thumbFile != null && detailFile != null) {
-			String tbFileName = thumbFile.getOriginalFilename();
-			String deFileName = detailFile.getOriginalFilename();
-			try {
-				tbFileName = URLDecoder.decode(tbFileName, "UTF-8");
-				deFileName = URLDecoder.decode(deFileName, "UTF-8");
-			} catch (UnsupportedEncodingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			bean.setThumb(tbFileName);
-			bean.setImg(deFileName);
-			String url = request.getRealPath("file") + "/";
-			logger.info(url);
-			try {
-				File fileTb = new File(url + tbFileName);
-				thumbFile.transferTo(fileTb);
-				File fileIm = new File(url + deFileName);
-				detailFile.transferTo(fileIm);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} // try - catch
-		} // if
+			// 파일 둘다 변경
+			String thumb = makeFile(thumbFile, bean, request);
+			String img = makeFile(detailFile, bean, request);
+			bean.setImg(img);
+			bean.setThumb(thumb);
+		} 
 
 		String proid = bean.getCat() + bean.getLoc().substring(0, 2)
 				+ bean.getTrans().substring(0, 2)
@@ -277,10 +263,31 @@ public class ProductController {
 
 				File fileNew = new File(url + mFileName);
 				mFile.transferTo(fileNew);
+				fileCopy(url + mFileName,
+						"C:\\Tomcat 7.0\\webapps\\market\\file\\"
+								+ mFileName);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} // try - catch
 		}// if
 		return mFileName;
 	}// makeFile
+	//파일 카피 관련
+		public void fileCopy(String inFileName, String outFileName) {
+			try {
+				FileInputStream fis = new FileInputStream(inFileName);
+				FileOutputStream fos = new FileOutputStream(outFileName);
+
+				int data = 0;
+				while ((data = fis.read()) != -1) {
+					fos.write(data);
+				}
+				fis.close();
+				fos.close();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}// filecopy
 }

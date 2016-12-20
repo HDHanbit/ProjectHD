@@ -86,9 +86,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 						<tr>
 							<td>${bean.id }</td>
 							<td>${bean.name }</td>
-							<td>${bean.phone }</td>
-							<td>${bean.cash}</td>
+							<td>0${bean.phone }</td>
 							<td>${bean.tcash}</td>
+							<td>${bean.cash}</td>
 							<td>${bean.grade }</td>
 			
 							<td><a class="btn btn-success"

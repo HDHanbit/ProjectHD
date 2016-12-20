@@ -12,6 +12,7 @@
 		<mapper resource="mapper/vocMapper.xml" />
 		<mapper resource="mapper/customerMapper.xml" />
 		<mapper resource="mapper/eventMapper.xml" />
+		<mapper resource="mapper/schedulerMapper.xml" />
 	</mappers>
 </configuration>
 

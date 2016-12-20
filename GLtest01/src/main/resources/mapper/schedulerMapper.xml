@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scheduler">
+	<!--scheduler sql -->
+	<delete id="deleteCoupon" parameterType="String">
+		delete from coupon where
+		cupperi=#{value}
+	</delete>
+	<delete id="deleteEvent" parameterType="String">
+		delete from event where
+		eduring=#{value}
+	</delete>
+	<update id="updateOneGrade">
+		update customer set grade='프로썸러' where tcash >= 2000000
+	</update>
+	<update id="updateTwoGrade">
+		update customer set grade='파워러버' where tcash >= 6000000	
+	</update>
+	<update id="updateThreeGrade">
+		update customer set grade='카사노바' where tcash >= 14000000	
+	</update>
+
+</mapper>

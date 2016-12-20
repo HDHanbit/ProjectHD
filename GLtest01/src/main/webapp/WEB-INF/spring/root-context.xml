@@ -53,5 +53,9 @@
 	<bean id="customerDaoImp" class="com.gl.master.model.customer.CustomerDaoImp">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
+	<!-- Scheduler 관련 db연결 -->
+	<bean id="schedulerDao" class="com.gl.master.scheduler.SchedulerDao">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
 
 </beans>

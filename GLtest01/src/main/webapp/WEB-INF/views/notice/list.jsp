@@ -89,6 +89,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 							$(".addBtn").hide();
 							return false;
 						});
+						$(".reset").on("click",function(){
+							$(".addDiv").hide();
+							$(".addBtn").show();
+						});
 					});
 </script>
 <style type="text/css"></style>
@@ -140,7 +144,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 								</tr>
 							</table>
 							<button type="submit" class="btn btn-primary">등록</button>
-							<button type="reset" class="btn btn-default">취소</button>
+							<button type="button" class="btn btn-default reset">취소</button>
 						</div>
 					</form>
 				</div>

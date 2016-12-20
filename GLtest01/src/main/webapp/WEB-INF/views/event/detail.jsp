@@ -160,7 +160,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <div class="col-md-4">
                <img alt="이벤트 상세 이미지" id="eImg" 
                   src="${pageContext.request.contextPath}/file/${bean.eimg}"
-                  class="img-event" width="350px">
+                  class="img-event img-thumbnail" width="350px">
             </div>
             <label for="eimgFile" class="col-md-2 control-label">이벤트 상세이미지</label>
             <div class="col-md-6 eimgDiv">

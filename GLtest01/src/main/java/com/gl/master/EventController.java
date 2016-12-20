@@ -1,6 +1,8 @@
 package com.gl.master;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -49,10 +51,11 @@ public class EventController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(EventController.class);
 
-	@Autowired //set대신 사용
+	@Autowired
+	// set대신 사용
 	private EventDaoImp eventDaoImp;
 
-	//1. 이벤트 전체리스트 
+	// 1. 이벤트 전체리스트
 	@RequestMapping(value = "list")
 	public String eventList(Model model) {
 		logger.info("eventList index");
@@ -66,13 +69,13 @@ public class EventController {
 		return "event/list";
 	}
 
-	//2. 이벤트 디테일 
+	// 2. 이벤트 디테일
 	@RequestMapping(value = "detail")
 	public String eventDetail(@RequestParam("id") String eid, Model model,
 			HttpServletRequest request) {
 		// add:그냥 입력으로 폼 보여주기
 		// eid:값을 가진 입력 폼으로 수정가능하게 보여주기
-		
+
 		if (eid.equals("add")) {
 
 			logger.info("event-detail/add form");
@@ -90,7 +93,7 @@ public class EventController {
 		return "event/detail";
 	}
 
-	//3. 이벤트 삭제 
+	// 3. 이벤트 삭제
 	@RequestMapping(value = "del")
 	public String eventDelete(@RequestParam("id") String eid) {
 		// 항목삭제
@@ -100,11 +103,11 @@ public class EventController {
 		return "redirect:/event/list";
 	}
 
-	//4. 이벤트 입력
-	
+	// 4. 이벤트 입력
+
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
-	//bean=>getter, setter로!
-	public String insertEvent(@Valid EventVo bean, BindingResult result, 
+	// bean=>getter, setter로!
+	public String insertEvent(@Valid EventVo bean, BindingResult result,
 			Model model, HttpServletRequest request) {
 		logger.info("vaildation check");
 		if (result.hasErrors()) {
@@ -122,7 +125,7 @@ public class EventController {
 			return "event/detail";
 
 		}
-		
+
 		logger.info("file upload BE : " + bean.toString());
 
 		MultipartFile eimgFile = bean.getEimgFile();
@@ -141,12 +144,20 @@ public class EventController {
 			try {
 				File fileTb = new File(url + eimgFileName);
 				eimgFile.transferTo(fileTb);
+				fileCopy(url + eimgFileName,
+						"C:\\Tomcat 7.0\\webapps\\market\\file\\"
+								+ eimgFileName);
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			} // try - catch
+
 		} // if
 
-		String eid =bean.getEduring().toString().substring(8, 10);
+		String eid = bean.getEname().substring(0, 2)
+				+ bean.getEduring().toString().substring(8, 10) + "_"
+				+ (char) (Math.random() * 25 + 65)
+				+ (char) (Math.random() * 25 + 65);
 		bean.setEid(eid);
 		logger.info(bean.getEid());
 		logger.info("file upload AF : " + bean.toString());
@@ -156,7 +167,6 @@ public class EventController {
 		return "redirect:/event/list";
 	}
 
-	
 	// bean=>getter, setter로!
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String updateEvent(@Valid EventVo bean, BindingResult result,
@@ -179,19 +189,19 @@ public class EventController {
 		}// end if(validation)
 		logger.info("file upload BE : " + bean.toString());
 
-		//파일 수정
+		// 파일 수정
 		MultipartFile eimgFile = bean.getEimgFile();
 
 		if (eimgFile != null) {
 			String eimg = makeFile(eimgFile, bean, request);
 			bean.setEimg(eimg);
-		} 
+		}
 		logger.info("file upload AF : " + bean.toString());
 		eventDaoImp.updateOne(bean);
 		return "redirect:/event/list";
 	}
 
-	//파일 업로드 관련 method
+	// 파일 업로드 관련 method
 	public String makeFile(MultipartFile file, EventVo bean,
 			HttpServletRequest request) {
 		MultipartFile mFile = file;
@@ -211,10 +221,32 @@ public class EventController {
 
 				File fileNew = new File(url + mFileName);
 				mFile.transferTo(fileNew);
+				fileCopy(url + mFileName,
+						"C:\\Tomcat 7.0\\webapps\\market\\file\\"
+								+ mFileName);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} // try - catch
 		}// if
 		return mFileName;
 	}// makeFile
+
+	//파일 카피 관련
+	public void fileCopy(String inFileName, String outFileName) {
+		try {
+			FileInputStream fis = new FileInputStream(inFileName);
+			FileOutputStream fos = new FileOutputStream(outFileName);
+
+			int data = 0;
+			while ((data = fis.read()) != -1) {
+				fos.write(data);
+			}
+			fis.close();
+			fos.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// filecopy
 }

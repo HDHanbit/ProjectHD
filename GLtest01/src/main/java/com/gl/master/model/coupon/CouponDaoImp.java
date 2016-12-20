@@ -24,9 +24,7 @@ public class CouponDaoImp{
 
 	public void insertOne(CouponVo bean) {
 		// TODO Auto-generated method stub
-		
 		sqlSession.insert("coupon.insertOne", bean);		
-		
 	}
 
 	
