@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="event">
+	<!--이벤트 sql -->
+	<select id="selectAll" resultType="com.gl.master.model.event.EventVo">
+		SELECT * FROM event ORDER BY EID
+	</select>
+	
+	<select id="selectOne" parameterType="String"
+		resultType="com.gl.master.model.event.EventVo">
+		SELECT * FROM EVENT WHERE EID=#{value}
+	</select>
+	
+	<insert id="insertOne" parameterType="com.gl.master.model.event.EventVo">
+		INSERT INTO EVENT VALUES
+		(#{eid}, #{ename}, #{eimg}, #{eexp},  #{eurl}, #{eprio}, #{eduring})
+	</insert>
+	
+	<update id="updateOne" parameterType="com.gl.master.model.event.EventVo">
+		UPDATE EVENT SET
+		ename=#{ename}, eimg =#{eimg}, eexp =#{eexp}, eurl=#{eurl}, eprio=#{eprio}, eduring =#{eduring} WHERE eid=#{eid}
+	</update>
+	
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM EVENT WHERE EID=#{value}
+	</delete>
+
+	
+</mapper>

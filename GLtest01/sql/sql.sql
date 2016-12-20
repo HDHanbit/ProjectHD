@@ -216,6 +216,7 @@ select * from product
   
 1:1문의
 insert into voc values('us아이7','아이디를 바꾸고 싶어요.','아이디를 바꾸고 싶은데 어떻게 하나요?','user1',null,null);
+insert into voc values('1','아이디를 바꾸고 싶어요.','아이디를 바꾸고 싶은데 어떻게 하나요?','user1',null,null);
 insert into voc values('us환불4','환불하고 싶어요.','환불환불환불환불환불환불환불예에~','user1','환불신청을 하시면 환불해 드립니다~',null);
 insert into voc values('iu아이7','아이디를 바꾸고 싶어요.','아이디를 바꾸고 싶은데 어떻게 하나요?','iuser1',null,null);
 insert into voc values('adte2','testtesttest','테스트중입니다.','admin','test',null);

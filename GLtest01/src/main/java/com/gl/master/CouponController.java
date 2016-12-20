@@ -58,7 +58,7 @@ public class CouponController {
 
 	@Autowired
 	private CouponDaoImp couponDaoImp;
-
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String cupFormView(Model model) {
 		// 쿠폰 등록 페이지 보여주기

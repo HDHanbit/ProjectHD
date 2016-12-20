@@ -45,5 +45,13 @@
 	<bean id="vocDaoImp" class="com.gl.master.model.voc.VocDaoImp">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
+	<!-- 이벤트 관련 db연결 -->
+	<bean id="eventDaoImp" class="com.gl.master.model.event.EventDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- 고객 관련 db연결 -->
+	<bean id="customerDaoImp" class="com.gl.master.model.customer.CustomerDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
 
 </beans>
