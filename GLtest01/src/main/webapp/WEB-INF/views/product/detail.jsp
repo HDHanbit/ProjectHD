@@ -243,22 +243,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 			</div>
 			<div class="form-group col-md-12">
 				<label for="peris" class="col-md-2 control-label">기간</label>
-				<div class="col-md-4 ${errs.peris }">
+				<div class="col-md-10 ${errs.peris }">
 					<input type="text" class="form-control" id="peris" name="peris"
 						placeholder="몇박몇일의 형식으로 작성해주십시오." value="${bean.peris }">
-				</div>
-				<label for="startd" class="col-md-2 control-label">출발일</label>
-				<div class="col-md-4">
-					<input type="date" class="form-control" id="startd" name="startd"
-						value="${bean.startd }">
-				</div>
-
-			</div>
-			<div class="form-group col-md-12">
-				<label for="trans" class="col-md-2 control-label">교통편</label>
-				<div class="col-md-10">
-					<input type="text" class="form-control" id="trans" name="trans"
-						placeholder="관련 교통편 작성" value="${bean.trans }">
 				</div>
 			</div>
 			<div class="form-group col-md-12">
@@ -318,10 +305,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 					<button type="button" class="btn btn-success imgBtn form-control">상세이미지 이미지 ${title}</button> 
 					<input hidden="hidden" name="img" value="${bean.img }">
 				</div>
-			</div>
+			</div>			
 			<div class="form-group col-md-12">
 				<button type="submit" class="btn btn-primary">${title}</button>
 				<button type="reset" class="btn btn-default">취소</button>
+				<c:if test="${title eq '수정' }">
+				<a role="button" class="btn btn-info" href="proDetail?id=${bean.proid }">출발일&항공편 입력하기</a>
+				</c:if>
 			</div>
 		</form>
 	</div>

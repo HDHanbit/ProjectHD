@@ -32,6 +32,10 @@ public class OrderDaoImp implements MasterDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("order.selectPO", proid);
 	}
+	public List<ProductOrderVo> selectOne(ProductOrderVo bean) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("order.selectPO", bean);
+	}
 
 	@Override
 	public void insertOne(Object bean) {

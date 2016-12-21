@@ -86,14 +86,17 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "selpo")
-	public void selPOList(@RequestParam("proid") String proid, Model model,
+	public void selPOList(@RequestParam("bean") String bean, Model model,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		// code값 받아와 지역 찾아내기
 		logger.info("ajax-비동기 통신");
-		List<ProductOrderVo> list = orderDaoImp.selectOne(proid);
-		String data = "<table class=\"table table-hover\"><tr><th>상품코드</th><th>주문된 인원수</th><th>최대 인원수</th></tr>";
+		String[] beans = bean.split("_");
+		ProductOrderVo poBean = new ProductOrderVo(beans[0], beans[1], beans[2]);
+		List<ProductOrderVo> list = orderDaoImp.selectOne(poBean);
+		String data = "<table class=\"table table-hover\"><tr><th>상품코드</th><th>출발날짜</th><th>주문된 인원수</th><th>최대 인원수</th></tr>";
 		if (list.size() > 0) {
-			data += "<tr><td>" + list.get(0).getProid() + "</td><td>"
+			data += "<tr><td>" + list.get(0).getProid() + "</td>"
+					+ "<td>"+list.get(0).getStartday()+"</td><td>"
 					+ list.get(0).getCnt() + "</td><td>"
 					+ list.get(0).getMaxp() + "</td></tr></table>";
 		} else {
@@ -138,7 +141,7 @@ public class OrderController {
 		String sysdate = dayTime.format(new Date(time));
 		logger.info(sysdate.toString());
 		
-		OrderVo obean = new OrderVo(orderid, "", userid, sysdate, gop, 0, 0);
+		OrderVo obean = new OrderVo(orderid, userid, sysdate, gop);
 		orderDaoImp.updateOne(obean);
 		
 		CustomerVo bean = new CustomerVo(userid, 0, price);

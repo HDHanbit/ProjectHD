@@ -25,6 +25,7 @@ public class SchedulerDao {
 		sqlSession.insert("scheduler.deleteEvent", date);		
 	}
 
+	//등급 수정
 	public void updateGrade() {
 		// TODO Auto-generated method stub
 		sqlSession.update("scheduler.updateOneGrade");
@@ -32,9 +33,30 @@ public class SchedulerDao {
 		sqlSession.update("scheduler.updateThreeGrade");
 	}
 
+	//쿠폰 입력
 	public void insertCoupon() {
 		// TODO Auto-generated method stub
-		//sqlSession.
+		
+		CouponVo bean = new CouponVo("", "[등급 쿠폰] : 10% 할인", 0.1, "흙흙모쏠", "");
+		
+		sqlSession.insert("scheduler.insertCoupon", bean);//1등급 쿠폰 입력
+		
+		bean.setCustomid("프로썸러");
+		sqlSession.insert("scheduler.insertCoupon", bean);//2등급 쿠폰 입력
+		sqlSession.insert("scheduler.insertCoupon", bean);//2개
+		
+		bean.setCupname("[등급 쿠폰] : 20% 할인");
+		bean.setPercent(0.2);
+		bean.setCustomid("파워러버");
+		sqlSession.insert("scheduler.insertCoupon", bean);//파워러버 쿠폰 입력
+		sqlSession.insert("scheduler.insertCoupon", bean);//2개
+		
+		bean.setCupname("[등급 쿠폰] : 30% 할인");
+		bean.setPercent(0.3);
+		bean.setCustomid("카사노바");
+		sqlSession.insert("scheduler.insertCoupon", bean);//카사노바 쿠폰 입력
+		sqlSession.insert("scheduler.insertCoupon", bean);//2개
+			
 	}
 	
 

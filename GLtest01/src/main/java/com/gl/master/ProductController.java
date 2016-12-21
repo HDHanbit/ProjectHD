@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +41,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gl.master.model.CatVo;
 import com.gl.master.model.LocVo;
 import com.gl.master.model.MasterDao;
+import com.gl.master.model.product.ProDetailVo;
 import com.gl.master.model.product.ProductDaoImp;
 import com.gl.master.model.product.ProductVo;
 
@@ -174,12 +176,11 @@ public class ProductController {
 			String img = makeFile(detailFile, bean, request);
 			bean.setImg(img);
 			bean.setThumb(thumb);
-		} 
+		}
 
 		String proid = bean.getCat() + bean.getLoc().substring(0, 2)
-				+ bean.getTrans().substring(0, 2)
-				+ bean.getStartd().toString().substring(8, 10)
-				+ (int) (Math.random() * 10);
+				+ (char) (Math.random() * 26 + 65) + (int) (Math.random() * 10)
+				+ (char) (Math.random() * 26 + 65) + (int) (Math.random() * 10);
 		bean.setProid(proid);
 		logger.info(bean.getProid());
 		logger.info("file upload AF : " + bean.toString());
@@ -214,7 +215,7 @@ public class ProductController {
 		}// end if(validation)
 		logger.info("file upload BE : " + bean.toString());
 
-		//파일 수정
+		// 파일 수정
 		MultipartFile thumbFile = bean.getThumbFile();
 		MultipartFile detailFile = bean.getImgFile();
 
@@ -234,7 +235,7 @@ public class ProductController {
 			String img = makeFile(detailFile, bean, request);
 			bean.setImg(img);
 		}
-		//파일 수정
+		// 파일 수정
 
 		logger.info("file upload AF : " + bean.toString());
 
@@ -243,7 +244,54 @@ public class ProductController {
 		return "redirect:/product/list";
 	}
 
-	//파일 업로드 관련 method
+	// 출발일&항공편 관련
+	// view : proDetail?id=${bean.proid
+	@RequestMapping(value = "proDetail")
+	public String proDetail(@RequestParam("id") String proid, Model model) {
+		// 항목입력
+
+		model.addAttribute("id", proid);
+		model.addAttribute("pdlist", proDaoImp.selectDetail(proid));
+		long time = System.currentTimeMillis();
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String sysdate = dayTime.format(new Date(time));
+		model.addAttribute("sysdate", sysdate);
+		return "product/prodetail";
+	}
+
+	// 입력 : insertDetail
+	@RequestMapping(value = "insertDetail")
+	public String proDetail(ProDetailVo bean, Model model) {
+		// 상품 시작일 입력
+
+		proDaoImp.insertDetail(bean);
+		model.addAttribute("id", bean.getProid());
+		model.addAttribute("pdlist", proDaoImp.selectDetail(bean.getProid()));
+		long time = System.currentTimeMillis();
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String sysdate = dayTime.format(new Date(time));
+		model.addAttribute("sysdate", sysdate);
+		return "product/prodetail";
+	}
+
+	// 삭제 : delDetail
+	@RequestMapping(value = "delDetail")
+	public String proDetailDel(ProDetailVo bean, Model model) {
+		// 상품 시작일 입력
+
+		proDaoImp.delDetail(bean);
+		model.addAttribute("id", bean.getProid());
+		model.addAttribute("pdlist", proDaoImp.selectDetail(bean.getProid()));
+		long time = System.currentTimeMillis();
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String sysdate = dayTime.format(new Date(time));
+		model.addAttribute("sysdate", sysdate);
+		return "product/prodetail";
+	}
+
+	//
+
+	// 파일 업로드 관련 method
 	public String makeFile(MultipartFile file, ProductVo bean,
 			HttpServletRequest request) {
 		MultipartFile mFile = file;
@@ -264,30 +312,30 @@ public class ProductController {
 				File fileNew = new File(url + mFileName);
 				mFile.transferTo(fileNew);
 				fileCopy(url + mFileName,
-						"C:\\Tomcat 7.0\\webapps\\market\\file\\"
-								+ mFileName);
+						"C:\\Tomcat 7.0\\webapps\\market\\file\\" + mFileName);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} // try - catch
 		}// if
 		return mFileName;
 	}// makeFile
-	//파일 카피 관련
-		public void fileCopy(String inFileName, String outFileName) {
-			try {
-				FileInputStream fis = new FileInputStream(inFileName);
-				FileOutputStream fos = new FileOutputStream(outFileName);
+		// 파일 카피 관련
 
-				int data = 0;
-				while ((data = fis.read()) != -1) {
-					fos.write(data);
-				}
-				fis.close();
-				fos.close();
+	public void fileCopy(String inFileName, String outFileName) {
+		try {
+			FileInputStream fis = new FileInputStream(inFileName);
+			FileOutputStream fos = new FileOutputStream(outFileName);
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			int data = 0;
+			while ((data = fis.read()) != -1) {
+				fos.write(data);
 			}
-		}// filecopy
+			fis.close();
+			fos.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// filecopy
 }

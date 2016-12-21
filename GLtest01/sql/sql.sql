@@ -10,9 +10,7 @@ price number,
 minp number,
 maxp number,
 peris varchar2(50),
-trans varchar2(50),
 exp varchar2(1000),
-startd varchar2(30),
 img varchar2(30),
 thumb varchar2(30),
 discount number,
@@ -20,10 +18,30 @@ point number,
 prio number,
 event number
 )
+create table prodetail(
+proid varchar2(30),
+startday varchar2(50),
+trans varchar2(50)
+)
+drop table prodetail
 
-insert into product values('GLOK아18',	'오키나와 3박 5일 즐기기',	'GL',	'일본-오키나와',	356000,	4,	20,	'3박5일',	'아시아나항공',	'오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성',	'2017-01-18',	'GLOK아18.png',	'GLOK아18tb.png',	null,	4.5,null,	1);
-insert into product values('GLOK아30',	'오키나와 3박 5일 즐기기',	'GL',	'일본-오키나와',	356000,	4,	20,	'3박5일',	'아시아나항공',	'오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성',	'2017-01-30',	'GLOK아30.png',	'GLOK아30tb.png',	null,	4.5,null,	1);
-insert into product values('GLOKP30',	'오키나와 3박 5일 즐기기',	'GL',	'일본-오키나와',	356000,	4,	20,	'3박5일',	'PEACH항공',	'오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성',	'2017-01-30',	'GLOKP30.png',	'GLOKP30tb.png',	0.1,	3.5,1,	2);
+select * from product
+insert into PROdetail values('GL일본A2T9','2016-12-30','아시아나항공');
+insert into PROdetail values('GL일본A2T9','2016-01-05','아시아나항공');
+insert into PROdetail values('GL일본A2T9','2016-01-20','Peach항공');
+insert into PROdetail values('KR제주B5Q3','2016-12-30','부산에어');
+insert into PROdetail values('KR제주B5Q3','2016-01-05','아시아나항공');
+insert into PROdetail values('KR제주B5Q3','2016-01-20','부산에어');
+insert into product values('GL일본A2T9',	'오키나와 3박 5일 즐기기',	
+'GL',	'일본-오키나와',
+356000,	4,	20,	
+'3박5일', '오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성오키나와 온천여행 3박5일 일정 여행 상세내역작성입니다작성작성',	
+'GLOK아18.png',	'GLOK아18tb.png',	null,	4.5, null,	1);
+insert into product values('KR제주B5Q3',	'떠나요~ 제주도~',	
+'KR',	'제주도',
+300000,	2,	10,	
+'0박1일', '제주도 일정. 궁금한 사항은 아래 문의사항을 이용하거나 또는 고객센터를 이용해 주세요.',	
+'KR제부30.png',	'KR제부30tb.png',	null,	3.5, null,	0);
 
 select * from guest
 
@@ -98,15 +116,28 @@ customid varchar2(20),
 paycash number,
 payd varchar2(20),
 goperson number,
-cancel number
+cancel number,
+startday varchar2(50),
+trans varchar2(50)
 )
-
-insert into ODER values('k_u_9','KR제주부산302','user1',1200000,'2016-12-01',4,0);
-insert into ODER values('k_i_9','KR제주부산302','iuser1',300000,'2016-12-10',1,0);
-insert into ODER values('G_u_1','GL일본Pe301','user2',0,null,3,0);
-insert into ODER values('G_i_4','GL일본아시183','iuser2',712000,'2016-12-16',2,1);
-insert into ODER values('F_i_9','FM환불지하024','iuser2',16000,'2016-12-30',2,0);
-
+insert into PROdetail values('GL일본A2T9','2016-12-30','아시아나항공');
+insert into PROdetail values('GL일본A2T9','2016-01-05','아시아나항공');
+insert into PROdetail values('GL일본A2T9','2016-01-20','Peach항공');
+insert into PROdetail values('KR제주B5Q3','2016-12-30','부산에어');
+insert into PROdetail values('KR제주B5Q3','2016-01-05','아시아나항공');
+insert into PROdetail values('KR제주B5Q3','2016-01-20','부산에어');
+insert into ODER values('k_u_9','KR제주B5Q3','user1',1200000,'2016-12-01',4,0,'2016-12-30','부산에어');
+insert into ODER values('k_i_9','KR제주B5Q3','iuser1',300000,'2016-12-10',1,0,'2016-12-30','부산에어');
+insert into ODER values('k_i_1','KR제주B5Q3','iuser1',300000,'2016-12-10',1,0,'2016-01-20','부산에어');
+delete from oder where orderid='k_i_9'
+insert into ODER values('G_u_1','GL일본A2T9','user2',712000,'2016-12-16',2,0,'2016-01-20','Peach항공');
+insert into ODER values('G_i_4','GL일본A2T9','iuser2',712000,'2016-12-16',2,1,'2016-01-05','아시아나항공');
+insert into ODER values('G_i_9','GL일본A2T9','iuser2',712000,'2016-12-28',2,0,'2016-12-30','아시아나항공');
+insert into ODER values('G_i_9','GL일본A2T9','admin',712000,'2016-12-28',2,0,'2016-12-30','아시아나항공');
+select * from (SELECT product.proid, maxp, startday, trans FROM oder 
+INNER JOIN product ON oder.proid=product.proid), 
+(select sum(goperson) as cnt from oder where oder.proid='GL일본A2T9' and oder.startday='2016-12-30' and oder.trans='아시아나항공') 
+where proid='GL일본A2T9' and startday='2016-12-30' and trans='아시아나항공'
 select * from custest
 
 
@@ -186,7 +217,7 @@ notfile varchar2(50),
 notday date
 )
 
-insert into notice values('pop1', '팝업',null,'popup.png',sysdate);
+insert into notice values('pop', '팝업',null,'popup.png',sysdate);
 insert into notice values('notice1', '신규오픈 공지사항입니다.',
 'greenlight 여행사가 신규오픈하게 되었습니다. 가입하셔서 다양한 즐거움을 누리시길 바랍니다.',null,sysdate);
 select * from notice
@@ -258,8 +289,22 @@ cupid varchar2(30),
   customid varchar2(20),
   cupperi varchar2(20)  
 
+select cupid, cupname, percent, id, cupperi from coupon inner join customer on customer.id = coupon.customid where customer.grade='프로썸러'
+insert all
+into coupon values('grade_test','grade_test',0.1,)
+select * from customer
 
+CREATE SEQUENCE seq_gcup
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+'grade'||seq_gcup.nextval
+drop sequence seq_gcup
 
-
-
+select * from product
+/
+INSERT INTO coupon (cupid,cupname,percent,customid,cupperi) (select 'grade'||seq_gcup.nextval,'등급 쿠폰',0.1,id, TO_CHAR(LAST_DAY(SYSDATE),'YYYY-MM-DD') cupperi from customer, dual where customer.grade='프로썸러')
+select * from coupon
+SELECT  TO_CHAR(LAST_DAY(SYSDATE),'YYYY-MM-DD') MONTH_LAST_DAY FROM DUAL
+delete from coupon where cupid like 'grade%'
   

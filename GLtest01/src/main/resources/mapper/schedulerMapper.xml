@@ -13,13 +13,23 @@
 		eduring=#{value}
 	</delete>
 	<update id="updateOneGrade">
-		update customer set grade='프로썸러' where tcash >= 2000000
+		update customer set grade='프로썸러' where tcash >=
+		2000000
 	</update>
 	<update id="updateTwoGrade">
-		update customer set grade='파워러버' where tcash >= 6000000	
+		update customer set grade='파워러버' where tcash >=
+		6000000
 	</update>
 	<update id="updateThreeGrade">
-		update customer set grade='카사노바' where tcash >= 14000000	
+		update customer set grade='카사노바' where tcash >=
+		14000000
 	</update>
+	<insert id="insertCoupon" parameterType="com.gl.master.model.coupon.CouponVo">
+		INSERT INTO coupon
+		(cupid,cupname,percent,customid,cupperi) (select
+		'grade'||seq_gcup.nextval,#{cupname},#{percent},id,
+		TO_CHAR(LAST_DAY(SYSDATE),'YYYY-MM-DD') cupperi from customer, dual
+		where customer.grade=#{customid})
+	</insert>
 
 </mapper>
