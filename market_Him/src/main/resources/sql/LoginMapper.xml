@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.gl.market.model.UserLoginDao">
+  	<select id="logCheck" parameterType="com.gl.market.model.UserJoinVo" resultType="int">
+  	SELECT COUNT(*) AS CNT FROM CUSTOMER WHERE ID=#{id} AND PW=#{pw}
+  	</select>
+  	<select id="logIn" parameterType="com.gl.market.model.UserJoinVo" resultType="com.gl.market.model.UserJoinVo">
+  	SELECT ID,NAME FROM CUSTOMER WHERE ID=#{id} AND PW=#{pw}
+  	</select>
+  	<select id="selId" parameterType="com.gl.market.model.UserJoinVo" resultType="com.gl.market.model.UserJoinVo">
+  	SELECT ID FROM CUSTOMER WHERE NAME=#{name} AND PHONE=#{phone}
+  	</select>
+  	<select id="selPw" parameterType="com.gl.market.model.UserJoinVo" resultType="com.gl.market.model.UserJoinVo">
+  	SELECT ID FROM CUSTOMER WHERE ID=#{id} AND PHONE=#{phone}
+  	</select>
+  	<update id="PwUp" parameterType="com.gl.market.model.UserJoinVo">
+  	UPDATE CUSTOMER SET PW=#{pw} WHERE ID=#{id}
+  	</update>
+  </mapper>
