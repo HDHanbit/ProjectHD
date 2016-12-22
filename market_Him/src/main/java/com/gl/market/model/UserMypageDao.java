@@ -19,5 +19,10 @@ public interface UserMypageDao {
 	int basketCk(String id);
 	List<UserOrderVo> bkList(HashMap<String, Object> map);
 	void bkCancel(String basketid);
+	int wishCk(String id);
+	List<UserWishVo> wishList(HashMap<String, Object> map);
+	void whCancel(String wishid);
+	void basketgo(HashMap<String, Object> map);
+	void wishdel(String proid);
 	
 }

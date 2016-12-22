@@ -21,6 +21,7 @@ import com.gl.market.model.UserCopVo;
 import com.gl.market.model.UserJoinVo;
 import com.gl.market.model.UserMypageDao;
 import com.gl.market.model.UserOrderVo;
+import com.gl.market.model.UserWishVo;
 
 @Controller
 public class UserMyCon {
@@ -82,7 +83,7 @@ public class UserMyCon {
 	public String basket(@RequestParam("idx")int idx ,Model model, HttpServletRequest req){
 		session = req.getSession();
 		int p=idx;
-		int row = 10;
+		int row = 5;
 		int rowTot=1;
 		int stert = (p-1)*row+1;
 		int end = stert+(row-1);
@@ -98,6 +99,28 @@ public class UserMyCon {
 		model.addAttribute("pTot", pTot);
 		model.addAttribute("bklist", list);
 		return "mypage/basket";
+	}
+	
+	@RequestMapping("/wishlist")
+	public String wishList(@RequestParam("idx")int idx ,Model model, HttpServletRequest req){
+		session = req.getSession();
+		int p=idx;
+		int row = 5;
+		int rowTot=1;
+		int stert = (p-1)*row+1;
+		int end = stert+(row-1);
+		String id = (String)session.getAttribute("id");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("stert", stert);
+		map.put("end", end);
+		UserMypageDao mapper = sqlSession.getMapper(UserMypageDao.class);
+		rowTot = mapper.wishCk(id);
+		List<UserWishVo> list = mapper.wishList(map);
+		int pTot = (rowTot-1)/row+1;
+		model.addAttribute("pTot", pTot);
+		model.addAttribute("whlist", list);
+		return "mypage/wishlist";
 	}
 	
 	@RequestMapping("/outform")
@@ -199,10 +222,31 @@ public class UserMyCon {
 		mapper.juCancel(orderid);
 		return "redirect:/julist?idx=1";
 	}
+	
 	@RequestMapping("/bkcnl")
 	public String bkcnl(@RequestParam("idx")String basketid){
 		UserMypageDao mapper = sqlSession.getMapper(UserMypageDao.class);
 		mapper.bkCancel(basketid);
+		return "redirect:/basket?idx=1";
+	}
+	
+	@RequestMapping("/wishcnl")
+	public String wishcnl(@RequestParam("idx")String wishid){
+		UserMypageDao mapper = sqlSession.getMapper(UserMypageDao.class);
+		mapper.whCancel(wishid);
+		return "redirect:/wishlist?idx=1";
+	}
+	
+	@RequestMapping("/basketgo")
+	public String basketgo(@RequestParam("proid")String proid, @RequestParam("wishid")String wishid, HttpServletRequest req){
+		session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("proid", proid);
+		UserMypageDao mapper = sqlSession.getMapper(UserMypageDao.class);
+		mapper.basketgo(map);
+		mapper.wishdel(wishid);
 		return "redirect:/basket?idx=1";
 	}
 	

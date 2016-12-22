@@ -18,6 +18,9 @@
   	<select id="bkList" parameterType="hashmap" resultType="com.gl.market.model.UserBasketVo">
   	SELECT BASKETID,PROID,CUSTOMID,PAYD,PRONAME,PRICE,THUMB FROM (SELECT ROWNUM AS RN, A.*, B.PRONAME, B.PRICE, B.THUMB FROM PRODUCT B,(SELECT BASKETID,PROID,CUSTOMID,PAYD FROM BASKET WHERE CUSTOMID=#{id})A where B.PROID = A.PROID) WHERE RN BETWEEN #{stert} AND #{end} ORDER BY BASKETID DESC 
   	</select>
+  	<select id="wishList" parameterType="hashmap" resultType="com.gl.market.model.UserWishVo">
+  	SELECT WISHID,PROID,CUSTOMID,PRONAME,PRICE,THUMB FROM (SELECT ROWNUM AS RN, A.*, B.PRONAME, B.PRICE, B.THUMB FROM PRODUCT B,(SELECT WISHID,PROID,CUSTOMID FROM WISH WHERE CUSTOMID=#{id})A where B.PROID = A.PROID) WHERE RN BETWEEN #{stert} AND #{end} ORDER BY WISHID DESC 
+  	</select>
   	<select id="mileCk" parameterType="String" resultType="com.gl.market.model.UserJoinVo">
   	SELECT CASH FROM CUSTOMER WHERE ID=#{value}
   	</select>
@@ -33,16 +36,28 @@
   	<select id="basketCk" parameterType="String" resultType="int">
   	SELECT COUNT(*) AS CNT FROM BASKET WHERE CUSTOMID=#{value}
   	</select>
+  	<select id="wishCk" parameterType="String" resultType="int">
+  	SELECT COUNT(*) AS CNT FROM WISH WHERE CUSTOMID=#{value}
+  	</select>
   	<update id="userUpdata" parameterType="com.gl.market.model.UserJoinVo">
   	UPDATE CUSTOMER SET PW=#{pw},NAME=#{name},PHONE=#{phone} WHERE ID=#{id}
   	</update>
+  	<insert id="basketgo" parameterType="hashmap">
+  	INSERT INTO BASKET (BASKETID,PROID,CUSTOMID,PAYD) VALUES ('BK'||BASKET_SEQ.NEXTVAL,#{proid},#{id},sysdate)
+  	</insert>
   	<update id="juCancel" parameterType="String">
   	UPDATE ODER SET CANCEL=1 WHERE ORDERID=#{value}
   	</update>
   	<delete id="bkCancel" parameterType="String">
   	DELETE FROM BASKET WHERE BASKETID=#{value}
   	</delete>
+  	<delete id="whCancel" parameterType="String">
+  	DELETE FROM WISH WHERE WISHID=#{value}
+  	</delete>
   	<delete id="userDelete" parameterType="String">
   	DELETE FROM CUSTOMER WHERE ID=#{value}
+  	</delete>
+  	<delete id="wishdel" parameterType="String">
+  	DELETE FROM WISH WHERE WISHID=#{value}
   	</delete>
   </mapper>
