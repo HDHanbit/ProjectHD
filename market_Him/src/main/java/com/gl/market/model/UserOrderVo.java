@@ -11,6 +11,8 @@ public class UserOrderVo {
 	private String payd;
 	private int cancel;
 	private int paycash;
+	private String startday;
+	private String trans;
 	private String proname;
 	private String thumb;
 	
@@ -19,8 +21,8 @@ public class UserOrderVo {
 	}
 
 	public UserOrderVo(String orderid, String proid, String customid,
-			int goperson, String payd, int cancel, int paycash, String proname,
-			String thumb) {
+			int goperson, String payd, int cancel, int paycash,
+			String startday, String trans, String proname, String thumb) {
 		super();
 		this.orderid = orderid;
 		this.proid = proid;
@@ -29,6 +31,8 @@ public class UserOrderVo {
 		this.payd = payd;
 		this.cancel = cancel;
 		this.paycash = paycash;
+		this.startday = startday;
+		this.trans = trans;
 		this.proname = proname;
 		this.thumb = thumb;
 	}
@@ -89,6 +93,22 @@ public class UserOrderVo {
 		this.paycash = paycash;
 	}
 
+	public String getStartday() {
+		return startday;
+	}
+
+	public void setStartday(String startday) {
+		this.startday = startday;
+	}
+
+	public String getTrans() {
+		return trans;
+	}
+
+	public void setTrans(String trans) {
+		this.trans = trans;
+	}
+
 	public String getProname() {
 		return proname;
 	}
@@ -118,7 +138,10 @@ public class UserOrderVo {
 		result = prime * result + ((payd == null) ? 0 : payd.hashCode());
 		result = prime * result + ((proid == null) ? 0 : proid.hashCode());
 		result = prime * result + ((proname == null) ? 0 : proname.hashCode());
+		result = prime * result
+				+ ((startday == null) ? 0 : startday.hashCode());
 		result = prime * result + ((thumb == null) ? 0 : thumb.hashCode());
+		result = prime * result + ((trans == null) ? 0 : trans.hashCode());
 		return result;
 	}
 
@@ -162,10 +185,20 @@ public class UserOrderVo {
 				return false;
 		} else if (!proname.equals(other.proname))
 			return false;
+		if (startday == null) {
+			if (other.startday != null)
+				return false;
+		} else if (!startday.equals(other.startday))
+			return false;
 		if (thumb == null) {
 			if (other.thumb != null)
 				return false;
 		} else if (!thumb.equals(other.thumb))
+			return false;
+		if (trans == null) {
+			if (other.trans != null)
+				return false;
+		} else if (!trans.equals(other.trans))
 			return false;
 		return true;
 	}
@@ -175,7 +208,8 @@ public class UserOrderVo {
 		return "UserOrderVo [orderid=" + orderid + ", proid=" + proid
 				+ ", customid=" + customid + ", goperson=" + goperson
 				+ ", payd=" + payd + ", cancel=" + cancel + ", paycash="
-				+ paycash + ", proname=" + proname + ", thumb=" + thumb + "]";
+				+ paycash + ", startday=" + startday + ", trans=" + trans
+				+ ", proname=" + proname + ", thumb=" + thumb + "]";
 	}
 	
 }

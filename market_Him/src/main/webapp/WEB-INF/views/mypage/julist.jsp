@@ -44,6 +44,8 @@
 						<tr>
 							<td>주문일자</td>
 							<td colspan="2">주문 상세 정보</td>
+							<td>출발일</td>
+							<td>교통편</td>
 							<td>상품금액</td>
 							<td>주문확인/취소</td>
 						</tr>
@@ -53,6 +55,8 @@
 							<td>${bean.payd }</td>
 							<td>${bean.thumb }</td>
 							<td>${bean.proname }</td>
+							<td>${bean.startday }</td>
+							<td>${bean.trans }</td>
 							<td>${bean.paycash }</td>
 							<td>
 								<button type="button" class="btn btn-primary">상세보기</button>
@@ -71,7 +75,7 @@
 					</c:if>
 					<c:if test="${julist.size() == 0}">
 						<tr>
-							<td colspan="5">주문내역이 없습니다.</td>
+							<td colspan="7">주문내역이 없습니다.</td>
 						</tr>
 					</c:if>		
 					</table>
