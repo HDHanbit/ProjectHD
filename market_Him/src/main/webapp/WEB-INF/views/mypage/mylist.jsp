@@ -7,9 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="/market/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+<script src="/market/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -20,7 +20,7 @@
 			return false;
 		}else{
 			$.ajax({
-				'url':'./cashcheck?id='+id,
+				'url':'/market/cashcheck?id='+id,
 				'error' : function(jqXHR, textStatus) {
 					alert("통신실패 " + textStatus + "(code): "	+ jqXHR.status);},
 				'success' : function(data) {
@@ -31,7 +31,7 @@
 			}); // cashcheck end
 			
 			$.ajax({
-				'url':'./copcheck?id='+id,
+				'url':'/market/copcheck?id='+id,
 				'error' : function(jqXHR, textStatus) {
 					alert("통신실패 " + textStatus + "(code): "	+ jqXHR.status);},
 				'success' : function(data) {
@@ -73,28 +73,28 @@
 
       <div class="row marketing">
         <div class="col-lg-3">
-          <a href="./julist?idx=1">주문내역</a>
+          <a href="/market/julist?idx=1">주문내역</a>
         </div>
         <div class="col-lg-3">
-          <a href="./wishlist?idx=1">위시리스트</a>
+          <a href="/market/wishlist?idx=1">위시리스트</a>
         </div>
         <div class="col-lg-3">
-          <a href="./basket?idx=1">장바구니</a>
+          <a href="/market/basket?idx=1">장바구니</a>
         </div>
         <div class="col-lg-3">
-          <a href="./cnllist?idx=1">결제취소내역</a>
+          <a href="/market/cnllist?idx=1">결제취소내역</a>
         </div>
         <div class="col-lg-3">
-          <a href="./editform">개인정보수정</a>
+          <a href="/market/editform">개인정보수정</a>
         </div>
         <div class="col-lg-3">
-          <a href="./coplist?idx=1">쿠폰함</a>
+          <a href="/market/coplist?idx=1">쿠폰함</a>
         </div>
         <div class="col-lg-3">
-          <a href="#">1:1문의내역</a>
+          <a href="/market/notice/voc/">1:1문의내역</a>
         </div>
         <div class="col-lg-3">
-          <a href="#">고객센터</a>
+          <a href="/market/notice/">고객센터</a>
         </div>
       </div>
 

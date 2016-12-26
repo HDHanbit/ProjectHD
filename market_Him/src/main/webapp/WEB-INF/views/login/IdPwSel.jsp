@@ -7,14 +7,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="/market/css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 	.cont_mid>div{
 		display: inline-block;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+<script src="/market/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -39,11 +39,11 @@
 			var id=$('#hidId').val();
 			var pw=$('#newPw').val();
 // 			alert("id:"+id+", pw:"+pw);
-			window.location.replace("./newpw?id="+id+"&pw="+pw);
+			window.location.replace("/market/newpw?id="+id+"&pw="+pw);
 		});
 		
 		$('#newIdch').click(function() {
-			window.location.replace("./logform");
+			window.location.replace("/market/logform");
 		});
 		
 		$('#idbtn').click(function() {
@@ -61,7 +61,6 @@
 				$('.selIdPhone').focus();
 				return;
 			}
-			
 			$.ajax({
 				'url':'./selid?name='+$('#selIdName').val()+'&phone='+$('#selIdPhone').val(),
 				'error' : function(jqXHR, textStatus, errorThrown) {
@@ -95,7 +94,7 @@
 			}
 			
 			$.ajax({
-				'url':'./selpw?id='+$('#selPwId').val()+'&phone='+$('#selPwPhone').val(),
+				'url':'/market/selpw?id='+$('#selPwId').val()+'&phone='+$('#selPwPhone').val(),
 				'error' : function(jqXHR, textStatus, errorThrown) {
 					alert("통신실패 " + textStatus + "(code): "	+ jqXHR.status+"(errorThrown):"+errorThrown);},
 				'success' : function(data) {

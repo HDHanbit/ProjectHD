@@ -8,9 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/market/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/market/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var delurl = window.location.search.substring(1);
@@ -65,15 +65,15 @@
 					<nav>
 					  <ul class="pagination">
 					    <li>
-					      <a href="./cnllist?idx=1" aria-label="Previous">
+					      <a href="/market/cnllist?idx=1" aria-label="Previous">
 					        <span aria-hidden="true">&laquo;</span>
 					      </a>
 					    </li>
 					    <c:forEach var="i" begin="1" end="${pTot }" step="1">
-						    <li class="pagecnt"><a href="./cnllist?idx=${i }">${i }</a></li>
+						    <li class="pagecnt"><a href="/market/cnllist?idx=${i }">${i }</a></li>
 					    </c:forEach>
 					    <li>
-					      <a href="./cnllist?idx=${pTot }" aria-label="Next">
+					      <a href="/market/cnllist?idx=${pTot }" aria-label="Next">
 					        <span aria-hidden="true">&raquo;</span>
 					      </a>
 					    </li>

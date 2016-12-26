@@ -83,6 +83,7 @@ public class UserLoginCon {
 	@RequestMapping("/selid")
 	public void selId(UserJoinVo data, Model model, HttpServletResponse resp){
 		UserLoginDao mapper = sqlSession.getMapper(UserLoginDao.class);
+		System.out.println(data);
 		UserJoinVo bean = mapper.selId(data);
 		String id="";
 		id=bean.getId();

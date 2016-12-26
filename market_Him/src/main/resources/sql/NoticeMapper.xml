@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  	<mapper namespace="com.gl.market.model.NoticeDao">
+  	<select id="noticePop" resultType="com.gl.market.model.NoticeVo">
+  		SELECT * FROM NOTICE WHERE NOTID='pop'
+  	</select>
+  	<select id="noticeAll" resultType="com.gl.market.model.NoticeVo">
+  		SELECT * FROM NOTICE ORDER BY NOTDAY DESC
+  	</select>
+  	<select id="selectOne" parameterType="String" resultType="com.gl.market.model.NoticeVo">
+  		SELECT * FROM NOTICE WHERE NOTID=#{value}
+  	</select>
+  
+  	<select id="qnaAll" resultType="com.gl.market.model.QnaVo">
+  		SELECT * FROM QNA ORDER BY NUM DESC
+  	</select>
+  	<select id="qnaOne" parameterType="int" resultType="com.gl.market.model.QnaVo">
+  		SELECT * FROM QNA WHERE NUM=#{value}
+  	</select>
+  	
+  	<select id="eventAll" resultType="com.gl.market.model.EventVo">
+  		SELECT * FROM EVENT ORDER BY EPRIO ASC
+  	</select>
+  	<select id="eventOne" parameterType="int" resultType="com.gl.market.model.EventVo">
+  		SELECT * FROM EVENT WHERE EPRIO=#{value}
+  	</select>
+  	
+  	<select id="listAll" parameterType="String" resultType="com.gl.market.model.VocVo">
+  		SELECT * FROM VOC WHERE CUSTOMID=#{value}
+  	</select>
+  	<select id="vocAnswer" parameterType="String" resultType="com.gl.market.model.VocVo">
+  		SELECT * FROM VOC WHERE VOCID=#{value}
+  	</select>
+  	<insert id="vocQuestion" parameterType="hashmap" >
+  		INSERT INTO VOC (VOCID,VOCTITLE,VOCCONTENT,CUSTOMID,ANSWER,PROID) VALUES (SEQUENCE1.NEXTVAL,#{title},#{content},#{userid},NULL,NULL)
+  	</insert>
+  
+  	<select id="buypro" parameterType="String" resultType="com.gl.market.model.BuyVo" >
+  		SELECT * FROM PRODUCT WHERE PROID=#{value}
+  	</select>
+  	<select id="buypro2" parameterType="String" resultType="com.gl.market.model.ProdetailVo">
+  		SELECT * FROM PRODETAIL WHERE PROID=#{value}  	
+  	</select>
+    <select id="coupon" parameterType="String" resultType="com.gl.market.model.CouponVo">
+    	SELECT * FROM COUPON WHERE CUSTOMID=#{value}
+    </select>
+
+	<select id="leaveTk" parameterType="hashmap" resultType="int">
+	SELECT COUNT(*) FROM ODER WHERE STARTDAY=#{startday} AND TRANS=#{air} AND PROID=#{proid}
+	</select>    
+	<select id="searchtk" parameterType="hashmap" resultType="int">
+	SELECT SUM(GOPERSON) FROM ODER WHERE STARTDAY=#{startday} AND TRANS=#{air} AND PROID=#{proid}
+	</select>    
+    
+  </mapper>
+  
+  

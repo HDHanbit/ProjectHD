@@ -7,9 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/market/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/market/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#delbtn').click(function() {
@@ -27,7 +27,7 @@
 					if(msg == $('#delPw').val()){
 						if (confirm("회원탈퇴 하시겠습니까?")) {
 							$('#delform').attr('method','post');
-					        $('#delform').attr('action','./delete');
+					        $('#delform').attr('action','/market/delete');
 					        $('#delform').submit();
 				        }else {
 				            return false;

@@ -7,9 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="/market/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+<script src="/market/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -28,9 +28,9 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="./gaip">가입</a></li>
-            <li><a href="./logform">로그인</a></li>
-            <li><a href="./mylist">마이페이지</a></li>
+            <li><a href="/market/gaip">가입</a></li>
+            <li><a href="/market/logform">로그인</a></li>
+            <li><a href="/market/mylist">마이페이지</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
