@@ -50,31 +50,24 @@
 			</div>
 			<div class="col-lg-10">
 				<h3>위시리스트</h3>
-				<div class="basket_list">
-					<table class="table table-bordered">
-						<tr>
-							<td colspan="2">상품 상세 정보</td>
-							<td>상품금액</td>
-							<td>주문</td>
-						</tr>
+					<div class="basket_list row">
+						<div class="col-md-6 col-xs-6">상품 상세 정보</div>
+						<div class="col-md-3 col-xs-3">상품금액</div>
+						<div class="col-md-3 col-xs-3">주문</div>
 					<c:if test="${whlist.size() != 0}">
 						<c:forEach items="${whlist }" var="bean">
-						<tr>
-							<td>${bean.thumb }</td>
-							<td>${bean.proname }</td>
-							<td>${bean.price }</td>
-							<td>
+							<div class="col-md-3 col-xs-3">${bean.thumb }</div>
+							<div class="col-md-3 col-xs-3">${bean.proname }</div>
+							<div class="col-md-3 col-xs-3">${bean.price }</div>
+							<div class="col-md-3 col-xs-3">
 								<button type="button" class="btn btn-primary">상세보기</button>
 								<button type="button" class="btn btn-primary" onclick="basketgo('${bean.proid }','${bean.wishid }');">장바구니로</button>
 								<button type="button" class="btn btn-primary" onclick="cancel('${bean.wishid }');">삭제하기</button>
-							</td>
-						</tr>
+							</div>
 						</c:forEach>
 					</c:if>
 					<c:if test="${whlist.size() == 0}">
-						<tr>
-							<td colspan="5">위시리스트가 비었습니다.</td>
-						</tr>
+							<div class="col-md-12 col-xs-12">위시리스트가 비었습니다.</div>
 					</c:if>		
 					</table>
 					<nav>

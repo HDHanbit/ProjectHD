@@ -29,27 +29,19 @@
 			<div class="col-lg-10">
 				<h3>쿠폰함</h3>
 				<div class="coupon_list">
-					<table class="table table-bordered">
-						<tr>
-							<td>쿠폰명</td>
-							<td>할인율</td>
-							<td>기  간</td>
-						</tr>
+						<div class="col-md-4 col-xs-4">쿠폰명</div>
+						<div class="col-md-4 col-xs-4">할인율</div>
+						<div class="col-md-4 col-xs-4">기  간</div>
 					<c:if test="${coplist.size() != 0}">
 						<c:forEach items="${coplist }" var="bean">
-						<tr>
-							<td>${bean.cupname }</td>
-							<td>${bean.percent }</td>
-							<td>${bean.cupperi }</td>
-						</tr>
+							<div class="col-md-4 col-xs-4">${bean.cupname }</div>
+							<div class="col-md-4 col-xs-4">${bean.percent }</div>
+							<div class="col-md-4 col-xs-4">${bean.cupperi }</div>
 						</c:forEach>
 					</c:if>
 					<c:if test="${coplist.size() == 0}">
-						<tr>
-							<td colspan="3">보유하신 쿠폰이 없습니다.</td>
-						</tr>
+							<div class="col-md-12 col-xs-12">보유하신 쿠폰이 없습니다.</div>
 					</c:if>		
-					</table>
 					<nav>
 					  <ul class="pagination">
 					    <li>

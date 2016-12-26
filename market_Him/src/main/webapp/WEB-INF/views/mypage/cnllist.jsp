@@ -30,21 +30,17 @@
 			<div class="col-lg-10">
 				<h3>상품취소내역</h3>
 				<div class="cancel_list">
-					<table class="table table-bordered">
-						<tr>
-							<td>주문일자</td>
-							<td colspan="2">주문 상세 정보</td>
-							<td>상품금액</td>
-							<td>취소현황</td>
-						</tr>
+						<div class="col-md-2">주문일자</div>
+						<div class="col-md-4">주문 상세 정보</div>
+						<div class="col-md-3">상품금액</div>
+						<div class="col-md-3">취소현황</div>
 					<c:if test="${cnlist.size() != 0}">
 						<c:forEach items="${cnlist }" var="bean">
-						<tr>
-							<td>${bean.payd }</td>
-							<td>${bean.thumb }</td>
-							<td>${bean.proname }</td>
-							<td>${bean.paycash }</td>
-							<td>
+							<div class="col-md-2">${bean.payd }</div>
+							<div class="col-md-2">${bean.thumb }</div>
+							<div class="col-md-2">${bean.proname }</div>
+							<div class="col-md-3">${bean.paycash }</div>
+							<div class="col-md-3">
 								<button type="button" class="btn btn-primary">상세보기</button>
 								<c:if test="${bean.cancel == 1 }">
 								<p>취소중</p>
@@ -52,16 +48,12 @@
 								<c:if test="${bean.cancel == 2 }">
 								<p>취소완료</p>
 								</c:if>
-							</td>
-						</tr>
+							</div>
 						</c:forEach>
 					</c:if>
 					<c:if test="${cnlist.size() == 0}">
-						<tr>
-							<td colspan="5">취소내역이 없습니다.</td>
-						</tr>
+						<div class="col-md-12">취소내역이 없습니다.</div>
 					</c:if>		
-					</table>
 					<nav>
 					  <ul class="pagination">
 					    <li>

@@ -15,7 +15,7 @@
 	function cancel(data) {
 		var ordid = data;
 		if (confirm("주문을 취소 하시겠습니까?")) {
-			window.location.href = "./jucnl?idx="+ordid;
+			window.location.href = "/market/jucnl?idx="+ordid;
         }else {
             return false;
         }
@@ -39,26 +39,23 @@
 			</div>
 			<div class="col-lg-10">
 				<h3>상품주문내역</h3>
-				<div class="jumun_list">
-					<table class="table table-bordered">
-						<tr>
-							<td>주문일자</td>
-							<td colspan="2">주문 상세 정보</td>
-							<td>출발일</td>
-							<td>교통편</td>
-							<td>상품금액</td>
-							<td>주문확인/취소</td>
-						</tr>
+				<div class="jumun_list row">
+					<div>
+						<div class="col-md-2 col-xs-4">주문일자</div>
+						<div class="col-md-4 col-xs-8">주문 상세 정보</div>
+						<div class="col-md-2 col-xs-4">출발일 / 교통편</div>
+						<div class="col-md-2 col-xs-4">상품금액</div>
+						<div class="col-md-2 col-xs-4">주문확인/취소</div>
 					<c:if test="${julist.size() != 0}">
 						<c:forEach items="${julist }" var="bean">
-						<tr>
-							<td>${bean.payd }</td>
-							<td>${bean.thumb }</td>
-							<td>${bean.proname }</td>
-							<td>${bean.startday }</td>
-							<td>${bean.trans }</td>
-							<td>${bean.paycash }</td>
-							<td>
+							<div class="col-md-2 col-xs-4">${bean.payd }</div>
+							<div class="col-md-2 col-xs-4">${bean.thumb }</div>
+							<div class="col-md-2 col-xs-4">${bean.proname }</div>
+							<div class="col-md-2 col-xs-4">
+								<p>${bean.startday } / ${bean.trans }</p>
+							</div>
+							<div class="col-md-2 col-xs-4">${bean.paycash }</div>
+							<div class="col-md-2 col-xs-4">
 								<button type="button" class="btn btn-primary">상세보기</button>
 								<c:if test="${bean.cancel == 0 }">
 								<button type="button" class="btn btn-primary" onclick="cancel('${bean.orderid }');">주문취소</button>
@@ -69,16 +66,13 @@
 								<c:if test="${bean.cancel == 2 }">
 								<p>취소완료</p>
 								</c:if>
-							</td>
-						</tr>
+							</div>
 						</c:forEach>
 					</c:if>
 					<c:if test="${julist.size() == 0}">
-						<tr>
-							<td colspan="7">주문내역이 없습니다.</td>
-						</tr>
+							<div class="col-md-12 col-xs-12">주문내역이 없습니다.</div>
 					</c:if>		
-					</table>
+					</div>
 					<nav>
 					  <ul class="pagination">
 					    <li>

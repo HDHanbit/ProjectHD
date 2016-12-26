@@ -40,34 +40,26 @@
 			<div class="col-lg-10">
 				<h3>장바구니</h3>
 				<div class="basket_list">
-					<table class="table table-bordered">
-						<tr>
-							<td>등록일</td>
-							<td colspan="2">주문 상세 정보</td>
-							<td>상품금액</td>
-							<td>주문</td>
-						</tr>
+						<div class="col-md-2">등록일</div>
+						<div class="col-md-4">주문 상세 정보</div>
+						<div class="col-md-3">상품금액</div>
+						<div class="col-md-3">주문</div>
 					<c:if test="${bklist.size() != 0}">
 						<c:forEach items="${bklist }" var="bean">
-						<tr>
-							<td>${bean.payd }</td>
-							<td>${bean.thumb }</td>
-							<td>${bean.proname }</td>
-							<td>${bean.price }</td>
-							<td>
+							<div class="col-md-2">${bean.payd }</div>
+							<div class="col-md-2">${bean.thumb }</div>
+							<div class="col-md-2">${bean.proname }</div>
+							<div class="col-md-3">${bean.price }</div>
+							<div class="col-md-3">
 								<button type="button" class="btn btn-primary">상세보기</button>
 								<button type="button" class="btn btn-primary">주문하기</button>
 								<button type="button" class="btn btn-primary" onclick="cancel('${bean.basketid }');">삭제하기</button>
-							</td>
-						</tr>
+							</div>
 						</c:forEach>
 					</c:if>
 					<c:if test="${bklist.size() == 0}">
-						<tr>
-							<td colspan="5">장바구니가 비었습니다.</td>
-						</tr>
+						<div>장바구니가 비었습니다.</div>
 					</c:if>		
-					</table>
 					<nav>
 					  <ul class="pagination">
 					    <li>
