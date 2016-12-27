@@ -9,8 +9,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <link href="/market/css/bootstrap.min.css" rel="stylesheet">
+<link href="/market/css/offcanvas.css" rel="stylesheet">
+<link href="/market/fonts/**" rel="stylesheet">
+<style type="text/css">
+	.container{
+		overflow: hidden;
+	}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/market/js/bootstrap.min.js"></script>
+<script src="/market/js/offcanvas.js"></script>
 <script type="text/javascript">
 
 	function onlynum() {
@@ -58,16 +66,31 @@
 	            return false;
 	        }
 		});
+		
+		var side = $('#sidebar').height();
+		var cont = $('.container').height(); 
+		if(cont<side){
+			$('.container').height(side);
+		}else{
+			$('#sidebar').height(cont);
+		}
+		
 	});
 </script>
 </head>
 <body>
-	<div class="content">
-		<div class="row marketing">
-			<div class="col-lg-2">
+	<div class = "header" >
+		<%@ include file = "../../header/header.jsp" %>
+	</div>
+	<div class="container">
+		<div class="row marketing row-offcanvas row-offcanvas-right">
 				<jsp:include page="pageside.jsp"/>
-			</div>
-			<div class="col-lg-10">
+			<div class="col-xs-12 col-sm-10">
+				<p class="pull-right visible-xs">
+					<button type="button" id="side_btn" class="btn btn-primary btn-xs" data-toggle="offcanvas">
+						<span class="glyphicon glyphicon-list" aria-hidden="true"/>
+					</button>
+				</p>
 				<form id="editform">
 					<div class="cont_top">
 						<h2>회원정보수정</h2>
@@ -102,6 +125,9 @@
 				</form>
 			</div>
 		</div>
+	</div>
+	<div class="footer">
+		<jsp:include page="../../footer/footer.jsp"/>
 	</div>		
 </body>
 </html>

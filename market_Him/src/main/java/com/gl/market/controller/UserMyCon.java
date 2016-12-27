@@ -39,7 +39,7 @@ public class UserMyCon {
 	public String juList(@RequestParam("idx")int idx ,Model model, HttpServletRequest req){
 		session = req.getSession();
 		int p=idx;
-		int row = 10;
+		int row = 5;
 		int rowTot=1;
 		int stert = (p-1)*row+1;
 		int end = stert+(row-1);
