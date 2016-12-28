@@ -23,10 +23,16 @@ public interface NoticeDao {
 	void vocQuestion(HashMap<String, String> map);
 	
 	BuyVo buypro(String proid);
-	List<ProdetailVo> buypro2(String proid2);
+	List<ProdetailVo> buypro2(String proid2);	
 	List<CouponVo> coupon(String id);
 	int leaveTk(HashMap<String, String> map);
 	int searchtk(HashMap<String, String> map);
+	void oder(HashMap<String, Object> map);
+	UserJoinVo selmile(String id);
+	void usemile(HashMap<String, Object> map);
+	void delcoup(String coup);
+	int tcash(String userid);
+	
 	
 	
 	

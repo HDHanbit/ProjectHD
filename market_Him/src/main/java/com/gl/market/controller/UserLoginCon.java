@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gl.market.model.UserJoinVo;
 import com.gl.market.model.UserLoginDao;
-
+ 
 @Controller
 public class UserLoginCon {
 	

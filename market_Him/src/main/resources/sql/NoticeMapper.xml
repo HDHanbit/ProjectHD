@@ -35,9 +35,12 @@
   		SELECT * FROM VOC WHERE VOCID=#{value}
   	</select>
   	<insert id="vocQuestion" parameterType="hashmap" >
-  		INSERT INTO VOC (VOCID,VOCTITLE,VOCCONTENT,CUSTOMID,ANSWER,PROID) VALUES (SEQUENCE1.NEXTVAL,#{title},#{content},#{userid},NULL,NULL)
+  		INSERT INTO VOC (VOCID,VOCTITLE,VOCCONTENT,CUSTOMID,ANSWER,PROID) VALUES (VOCSEQUENCE.NEXTVAL,#{title},#{content},#{userid},NULL,NULL)
   	</insert>
   
+  	<select id="selmile" parameterType="String" resultType="com.gl.market.model.UserJoinVo">
+  		SELECT * FROM CUSTOMER WHERE ID=#{value}
+  	</select>
   	<select id="buypro" parameterType="String" resultType="com.gl.market.model.BuyVo" >
   		SELECT * FROM PRODUCT WHERE PROID=#{value}
   	</select>
@@ -47,14 +50,24 @@
     <select id="coupon" parameterType="String" resultType="com.gl.market.model.CouponVo">
     	SELECT * FROM COUPON WHERE CUSTOMID=#{value}
     </select>
-
 	<select id="leaveTk" parameterType="hashmap" resultType="int">
 	SELECT COUNT(*) FROM ODER WHERE STARTDAY=#{startday} AND TRANS=#{air} AND PROID=#{proid}
 	</select>    
 	<select id="searchtk" parameterType="hashmap" resultType="int">
 	SELECT SUM(GOPERSON) FROM ODER WHERE STARTDAY=#{startday} AND TRANS=#{air} AND PROID=#{proid}
+	</select>
+	<select id="tcash" parameterType="String" resultType="int">
+	SELECT TCASH FROM CUSTOMER WHERE ID=#{value}
 	</select>    
-    
+    <insert id="oder" parameterType="hashmap">
+    INSERT INTO ODER (ORDERID,PROID,CUSTOMID,PAYCASH,TRANS,GOPERSON,CANCEL,STARTDAY,PAYD) VALUES (#{oderid}||ODERSEQUENCE.NEXTVAL,#{proid},#{userid},#{total},#{air},#{num},0,#{start},SYSDATE)
+    </insert>
+    <update id="usemile" parameterType="hashmap">
+    UPDATE CUSTOMER SET CASH=#{mile}, TCASH=#{tcash} WHERE ID=#{userid}
+    </update>
+    <delete id="delcoup" parameterType="String">
+    DELETE FROM COUPON WHERE CUPID=#{value}
+    </delete>
   </mapper>
   
   

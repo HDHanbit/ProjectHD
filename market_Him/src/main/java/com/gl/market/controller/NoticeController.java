@@ -14,6 +14,7 @@ import java.util.List;
 
 
 
+
 import javax.print.attribute.Size2DSyntax;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +37,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 
+
 import com.gl.market.model.CouponVo;
 import com.gl.market.model.NoticeDao;
 import com.gl.market.model.OderVO;
 import com.gl.market.model.ProdetailVo;
+import com.gl.market.model.UserJoinVo;
 import com.gl.market.model.VocVo;
 
 @Controller
@@ -140,19 +143,23 @@ public class NoticeController {
 		mapper.vocQuestion(map);
 		return "redirect:/notice/voc/";
 	}
-	@RequestMapping("buy/")
-	public String buy(Model model, HttpServletRequest req){
+	@RequestMapping("buy")
+	public String buy(@RequestParam("proid")String proid, @RequestParam("ticket")String ticket
+			, @RequestParam("orderticket")String orderticket, Model model, HttpServletRequest req){
 		session = req.getSession();
 		String id = (String) session.getAttribute("id");
-		String proid = "KR力林B5Q3";
-		String proid2 ="KR力林B5Q3";
-		String eq ="KR力林B5Q3";
+		String name = (String) session.getAttribute("name");
 		NoticeDao mapper = sqlSession.getMapper(NoticeDao.class);
 		model.addAttribute("buypro", mapper.buypro(proid));
-		List<ProdetailVo> list = mapper.buypro2(proid2);
+		List<ProdetailVo> list = mapper.buypro2(proid);
 		model.addAttribute("buypro2", list);
 		List<CouponVo> coupon = mapper.coupon(id);
+		UserJoinVo cash = mapper.selmile(id);
+		model.addAttribute("name", name);
 		model.addAttribute("coupon", coupon);
+		model.addAttribute("ticket", ticket);
+		model.addAttribute("orderticket", orderticket);
+		model.addAttribute("mile", cash.getCash());
 		return "notice/buy";
 	}
 	@RequestMapping("ticket/")
@@ -181,10 +188,31 @@ public class NoticeController {
 			out.print(tot);
 		}
 	}
-	@RequestMapping("buy/complete/")
-	public String complete(OderVO vo){
-		
-		
+	@RequestMapping("buy/complete")
+	public String complete(OderVO vo, @RequestParam("total")String total, @RequestParam("num")int num,
+			@RequestParam("start")String start, @RequestParam("air")String air, @RequestParam("proid")String proid,
+			@RequestParam("oderid")String oderid,@RequestParam("mile")int mile,@RequestParam("coup")String coup, HttpServletRequest req){
+		session = req.getSession();
+		String userid = (String) session.getAttribute("id");
+		NoticeDao mapper = sqlSession.getMapper(NoticeDao.class);
+		int addmile =(int)(Integer.parseInt(total)*0.01);
+		int tcash = mapper.tcash(userid);
+		System.out.println(tcash);
+		tcash+=Integer.parseInt(total);
+		mile+=addmile;
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("userid", userid);	
+		map.put("oderid", oderid);	
+		map.put("proid", proid);
+		map.put("total", total);
+		map.put("num", num);
+		map.put("start", start);
+		map.put("air", air);
+		map.put("mile", mile);
+		map.put("tcash", tcash);
+		mapper.oder(map);
+		mapper.usemile(map);
+		mapper.delcoup(coup);
 		return "notice/buysuccess";
 	}
 }

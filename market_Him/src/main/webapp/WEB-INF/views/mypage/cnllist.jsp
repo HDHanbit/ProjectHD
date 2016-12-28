@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <link href="/market/css/bootstrap.min.css" rel="stylesheet">
 <link href="/market/css/offcanvas.css" rel="stylesheet">
-<link href="/market/fonts/**" rel="stylesheet">
 <style type="text/css">
 	.container{
 		overflow: hidden;
