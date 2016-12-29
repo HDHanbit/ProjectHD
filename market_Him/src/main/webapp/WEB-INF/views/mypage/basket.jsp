@@ -29,10 +29,19 @@
 		
 	}
 	
-	function buygo(data) {
-		var proid = data;
+	function buygo(data1,data2) {
+		var proid = data1;
+		var basketid = data2;
 		if (confirm("해당 상품을 구매 하시겠습니까?")) {
-			window.location.href = "/market/notice/buy?proid="+proid+"&ticket=&orderticket=";
+			$.ajax({
+				'url': "/market/bkcnl?idx="+basketid,
+				'error' : function(jqXHR, textStatus, errorThrown) {
+					alert("통신실패 " + textStatus + "(code): "	+ jqXHR.status+"(errorThrown):"+errorThrown);},
+				'success' : function(data) {
+					window.location.href = "/market/notice/buy?proid="+proid+"&ticket=&orderticket=";
+					
+				}		
+			});
         }else {
             return false;
         }
@@ -82,7 +91,7 @@
 							<div class="col-md-3 col-xs-3">${bean.price }</div>
 							<div class="col-md-3 col-xs-12">
 								<button type="button" class="btn btn-primary">상세보기</button>
-								<button type="button" class="btn btn-primary" onclick="buygo('${bean.proid }');">주문하기</button>
+								<button type="button" class="btn btn-primary" onclick="buygo('${bean.proid }','${bean.basketid }');">주문하기</button>
 								<button type="button" class="btn btn-primary" onclick="cancel('${bean.basketid }');">삭제하기</button>
 							</div>
 						</c:forEach>

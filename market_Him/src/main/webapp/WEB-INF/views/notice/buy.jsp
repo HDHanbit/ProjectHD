@@ -60,6 +60,10 @@
     					alert("보유마일리지보다큽니다.");
     					return;
     				}
+    		    	if($('#start').val()==""){
+    		    		alert("출발일/항공편을 선택해주세요");
+    					return;
+    		    	}
     				
     				var id='${id }';
     		    	var proid='${buypro.proid }';
@@ -75,7 +79,6 @@
     				var coup=$('#coupon').val().split("&");
     				
     				tot*=1;
-    					alert("확인");
     				if(tot>=$('#num').val()){
     					$('#return').val("http://localhost:8080/market/notice/buy/complete?total="+tot+"&num="+num+"&start="+startday1+"&air="+trans+"&proid="+proid+"&oderid="+oderid+"&userid="+id+"&mile="+mile+"&coup="+coup[1]);
     					$('#notify_url').val("http://localhost:8080/market/notice/buy/complete?total="+tot+"&num="+num+"&start="+startday1+"&air="+trans+"&proid="+proid+"&oderid="+oderid+"&userid="+id+"&mile="+mile+"&coup="+coup[1]);
@@ -98,6 +101,7 @@
     				var usemile = $('#mile').val();
     				if(mile<usemile){
     					alert("보유마일리지보다큽니다.");
+    					return false;
     				}else{
     					total();
     					return false;
@@ -124,126 +128,101 @@
 		}
     </script>
     <style type="text/css">
-    .one{
-    	margin: auto;
-    	width: 80%;
-    }
-    .one tr td h2{
-    	color: red;
-    }
-    .two{
-    	margin: auto;
-    	width: 80%;
-    }
+/*     .one{ */
+/*     	margin: auto; */
+/*     	width: 80%; */
+/*     } */
+/*     .one tr td h2{ */
+/*     	color: red; */
+/*     } */
+/*     .two{ */
+/*     	margin: auto; */
+/*     	width: 80%; */
+/*     } */
     
     </style>
 </head>
 <body>
+	<div class = "header" >
+		<%@ include file = "../../header/header.jsp" %>
+	</div>
 <form id="buypage">
 	<input type="hidden" name="cmd" value="_xclick" size="50" /><br />
-	<input type="hidden" name="business" value="info-facilitator@myemail.co.kr" size="50" /><br />
-	<h1>주문/결제</h1>
-	<br/>
-	<table class="one">
-	<tr>
-		<td width="25%"><img src="/market/file/${buypro.thumb }"></td>
-		<td><h2>(${buypro.proname } )<small>를 주문합니다.</small></h2></td>
-	</tr>
-	</table>
-	<br/><br/>
-	<h1>구매자정보</h1>
-	<br/>
-	<div class="table-responsive">
-	<table class="table table-bordered two" >
-		<tr>
-			<th width="20%">아이디</th>
-			<th>${id }</th>
-		</tr>
-		<tr>
-				<td width="20%">이름</td>
-				<td>${name }</td>
-		</tr>
-	</table>
+	<input type="hidden" name="business" value="6class.test2@gmail.com" size="50" /><br />
+	
+	<div>
+		<h1>주문/결제</h1>
 	</div>
-	<br/><br/>
-	<h1>구매 상품</h1>
-	<br/>
-	<div class="table-responsive">
-	<table class="table table-bordered two" >
-		<tr>
-			<th width="20%">출발편&항공편</th>
-			<th colspan="2">
-			<select id="start">
-			<%-- <option>${ticket }</option> --%>
-			<c:forEach items="${buypro2 }" var="buypro2">
-			<option value="${buypro2.startday }&${buypro2.trans }">
-							${buypro2.startday }&${buypro2.trans }
+	<div>
+		<img src="/market/file/${buypro.thumb }">
+	</div>
+	<div>
+		<h2>(${buypro.proname } )<small>를 주문합니다.</small></h2>
+	</div>
+	<div>
+		<h1>구매자정보</h1>
+	</div>
+	<div>아이디</div>
+	<div>${id }</div>
+	<div>이름</div>
+	<div>${name }</div>
+	<div><h1>구매 상품</h1></div>
+		<div>출발편&항공편</div>
+		<div>
+		<select id="start">
+		<%-- <option>${ticket }</option> --%>
+		<option value="">출발일/항공편을 선택해주세요.</option>
+		<c:forEach items="${buypro2 }" var="buypro2">
+		<option value="${buypro2.startday }&${buypro2.trans }">
+						${buypro2.startday }&${buypro2.trans }
+		</option>
+		</c:forEach>
+		</select>
+	</div>
+		<div>기간</div>
+		<div>${buypro.peris  } </div>
+		<div>신청가능티켓</div>
+		<div><div id="person"><span id="tot">${orderticket }</span>장</div> </div>
+		<div>여행인원수</div>
+		<div><input type="text" id="num">명</div>
+		<div><h1>결제 금액</h1></div>
+		<div>상품금액</div>
+		<div><p class="totpay">${buypro.price }</p></div>
+		<div>기본할인</div>
+		<div><p class="dis"></p></div>
+		<div>사용가능쿠폰</div>
+		<div>보유 쿠폰 &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp
+		<select id="coupon">
+		<c:if test="${empty coupon  }" ><option value="0">쿠폰이 없습니다.</option></c:if>
+		<c:if test="${!empty coupon  }" >
+			<option value="0">쿠폰을 선택해주세요.</option>
+		<c:forEach items="${coupon }" var="coup">
+			<option value="${coup.percent }&${coup.cupid }">
+				${coup.cupname }, ${coup.percent }%
 			</option>
-			</c:forEach>
-			</select>
-		</th>
-		</tr>
-		<tr>
-				<td width="20%">기간</td>
-				<td>${buypro.peris  } </td>
-		</tr>
-		<tr>
-				<td width="20%">신청가능티켓</td>
-				<td><div id="person"><span id="tot">${orderticket }</span>장</div> </td>
-		</tr>
-		<tr>
-				<td width="20%">여행인원수</td>
-				<td><input type="text" id="num">명</td>
-		</tr>
-	</table>
+		</c:forEach>
+		</c:if>
+		</select>
 	</div>
-	<br/><br/>
-	<h1>결제 금액</h1>
-	<br/>
-	<div class="table-responsive">
-	<table class="table table-bordered two" >
-		
-		<tr>
-				<td width="20%">상품금액</td>
-				<td><p class="totpay">${buypro.price }</p></td>
-		</tr>
-		<tr>
-				<td width="20%">기본할인</td>
-				<td><p class="dis"></p></td>
-		</tr>
-		<tr>
-				<td width="20%">사용가능쿠폰</td>
-				<td>보유 쿠폰 &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp
-			<select id="coupon">
-			<c:if test="${empty coupon  }" ><option value="0">쿠폰이 없습니다.</option></c:if>
-			<c:if test="${!empty coupon  }" >
-				<option value="0">쿠폰을 선택해주세요.</option>
-			<c:forEach items="${coupon }" var="coup">
-				<option value="${coup.percent }&${coup.cupid }">
-					${coup.cupname }, ${coup.percent }%
-				</option>
-			</c:forEach>
-			</c:if>
-			</select>
-		</td>
-		</tr>
-		<tr>
-				<td width="20%">마일리지</td>
-				<td>${mile }point &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp<input type="text" id="mile"><button id="use">사용하기</button></td>
-		</tr>
-		<tr>
-				<td width="20%">총 결제금액</td>
-				<td><span id="total"></span></td>
-		</tr>
-	</table>
+		<div>마일리지</div>
+		<div>${mile }point &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp<input type="text" id="mile"><button id="use">사용하기</button></div>
+	<div>
+		<div>총 결제금액</div>
+		<div>
+			<span id="total"></span>
+			<input id="payment" type="button" class="btn btn-info" value="결제하기" size="50" />
+		</div>
+	</div>
 	<input type="hidden" id="amount" name="amount" value="" size="50" /><br />
 	<input type="hidden" id="item_name" name="item_name" value="${buypro.proname }" size="50" /><br />
-	<input type="index" id="return" name="return" value="" size="50" /><br />
-	<input type="index" id="notify_url" name="notify_url" value="" size="50" /><br />
-	<input type="index" id="cancel_return" name="cancel_return" value="" size="50" /><br />
+	<input type="hidden" id="return" name="return" value="" size="50" /><br />
+	<input type="hidden" id="notify_url" name="notify_url" value="" size="50" /><br />
+	<input type="hidden" id="cancel_return" name="cancel_return" value="" size="50" /><br />
 	<input type="hidden" name="charset" value="UTF-8" size="50" /><br />
     <input type="hidden" name="currency_type" value="USD" size="50" /><br />
-    <input id="payment" type="button" value="결제하기" size="50" />
 </form>
+	<div class="footer">
+		<jsp:include page="../../footer/footer.jsp"/>
+	</div>
 </body>
 </html>
